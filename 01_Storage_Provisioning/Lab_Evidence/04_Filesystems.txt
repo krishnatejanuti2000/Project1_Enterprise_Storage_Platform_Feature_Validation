@@ -1,0 +1,10 @@
+Filesystem          Type      Size  Used Avail Use% Mounted on
+devtmpfs            devtmpfs  3.6G     0  3.6G   0% /dev
+tmpfs               tmpfs     3.7G     0  3.7G   0% /dev/shm
+tmpfs               tmpfs     1.5G   18M  1.5G   2% /run
+efivarfs            efivarfs  374K  266K  104K  72% /sys/firmware/efi/efivars
+/dev/mapper/rl-root xfs        70G  8.3G   62G  12% /
+/dev/sda5           xfs       960M  556M  405M  58% /boot
+/dev/sda4           vfat      599M  7.7M  592M   2% /boot/efi
+/dev/mapper/rl-home xfs       221G   70G  152G  32% /home
+tmpfs               tmpfs     741M  904K  740M   1% /run/user/1000

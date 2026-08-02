@@ -1,0 +1,50 @@
+Disk /dev/sda: 931.51 GiB, 1000204886016 bytes, 1953525168 sectors
+Disk model: ST1000LM035-1RK1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 6C4692AB-4017-4757-A3A7-345C73509F80
+
+Device          Start        End   Sectors   Size Type
+/dev/sda1        2048     264191    262144   128M Microsoft reserved
+/dev/sda2      264192  695232511 694968320 331.4G Microsoft basic data
+/dev/sda3   695232512 1324376063 629143552   300G Microsoft basic data
+/dev/sda4  1324376064 1325604863   1228800   600M EFI System
+/dev/sda5  1325604864 1327702015   2097152     1G Linux filesystem
+/dev/sda6  1327702016 1953523711 625821696 298.4G Linux LVM
+
+
+Disk /dev/nvme0n1: 238.47 GiB, 256060514304 bytes, 500118192 sectors
+Disk model: BC711 NVMe SK hynix 256GB               
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: D0BB383D-EF1D-4F49-8420-3CC8417DF447
+
+Device             Start       End   Sectors   Size Type
+/dev/nvme0n1p1      2048    514047    512000   250M EFI System
+/dev/nvme0n1p2    514048    776191    262144   128M Microsoft reserved
+/dev/nvme0n1p3    776192 458350591 457574400 218.2G Microsoft basic data
+/dev/nvme0n1p4 458350592 460986367   2635776   1.3G Windows recovery environment
+/dev/nvme0n1p5 460988416 496912383  35923968  17.1G Windows recovery environment
+/dev/nvme0n1p6 496914432 500117503   3203072   1.5G Windows recovery environment
+
+
+Disk /dev/mapper/rl-root: 70 GiB, 75161927680 bytes, 146800640 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/rl-swap: 7.61 GiB, 8174698496 bytes, 15966208 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+
+
+Disk /dev/mapper/rl-home: 220.8 GiB, 237083033600 bytes, 463052800 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes

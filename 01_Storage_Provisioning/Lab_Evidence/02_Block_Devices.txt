@@ -1,0 +1,18 @@
+NAME          SIZE TYPE FSTYPE      MOUNTPOINT
+sda         931.5G disk             
+├─sda1        128M part             
+├─sda2      331.4G part ntfs        
+├─sda3        300G part ntfs        
+├─sda4        600M part vfat        /boot/efi
+├─sda5          1G part xfs         /boot
+└─sda6      298.4G part LVM2_member 
+  ├─rl-root    70G lvm  xfs         /
+  ├─rl-swap   7.6G lvm  swap        [SWAP]
+  └─rl-home 220.8G lvm  xfs         /home
+nvme0n1     238.5G disk             
+├─nvme0n1p1   250M part vfat        
+├─nvme0n1p2   128M part             
+├─nvme0n1p3 218.2G part ntfs        
+├─nvme0n1p4   1.3G part ntfs        
+├─nvme0n1p5  17.1G part ntfs        
+└─nvme0n1p6   1.5G part ntfs        
