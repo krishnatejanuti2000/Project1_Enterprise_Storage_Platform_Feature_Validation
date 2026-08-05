@@ -1,0 +1,79 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 13
+Evidence Name   : Verify Disk I/O Distribution
+
+============================================================
+Objective
+============================================================
+
+To verify that write I/O generated on the RAID 0 logical device
+is distributed across all member disks, demonstrating the striping
+behavior of RAID 0.
+
+============================================================
+Commands Executed
+============================================================
+
+Terminal 1
+
+$ iostat -dx 1
+
+Terminal 2
+
+$ sudo dd if=/dev/zero of=/mnt/raid0/testfile2.img bs=1M count=4096 status=progress
+
+============================================================
+Command Output
+============================================================
+
+Device            r/s     rkB/s     w/s     wkB/s
+md1              0.00      0.00   32.00   8192.00
+sdb              0.00      0.00   16.00   4096.00
+sde              0.00      0.00   16.00   4096.00
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID 0 logical device (/dev/md1) received write requests.
+
+• The total write workload observed on /dev/md1 was:
+    - 32 write operations/second
+    - 8192 KB/s
+
+• The workload was distributed evenly across both member disks.
+
+    /dev/sdb
+        - 16 write operations/second
+        - 4096 KB/s
+
+    /dev/sde
+        - 16 write operations/second
+        - 4096 KB/s
+
+• Both disks participated simultaneously in servicing the write
+  workload.
+
+• This behavior confirms the block-level striping mechanism of
+  RAID 0.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array successfully distributed write operations across
+both member disks. The observed I/O pattern confirms that RAID 0
+improves performance by allowing multiple disks to service I/O
+requests concurrently through striping.

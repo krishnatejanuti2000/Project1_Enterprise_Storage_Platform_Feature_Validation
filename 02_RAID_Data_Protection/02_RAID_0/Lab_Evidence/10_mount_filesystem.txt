@@ -1,0 +1,55 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 10
+Evidence Name   : Mount RAID 0 Filesystem
+
+============================================================
+Objective
+============================================================
+
+To create a mount point and mount the newly created EXT4
+filesystem on the RAID 0 logical device (/dev/md1).
+
+============================================================
+Commands Executed
+============================================================
+
+$ sudo mkdir -p /mnt/raid0
+
+$ sudo mount /dev/md1 /mnt/raid0
+
+============================================================
+Command Output
+============================================================
+
+(No output)
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The mount point /mnt/raid0 was successfully created.
+
+• The RAID device /dev/md1 was mounted successfully.
+
+• No errors or warnings were reported.
+
+• The filesystem is now accessible through /mnt/raid0.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 filesystem was successfully mounted and is ready for
+functional validation by performing read and write operations.

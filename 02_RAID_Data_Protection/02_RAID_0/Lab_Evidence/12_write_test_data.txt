@@ -1,0 +1,63 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 12
+Evidence Name   : Functional Write Validation
+
+============================================================
+Objective
+============================================================
+
+To verify that the mounted RAID 0 filesystem can successfully
+accept write operations by creating a large test file.
+
+============================================================
+Command Executed
+============================================================
+
+$ sudo dd if=/dev/zero of=/mnt/raid0/testfile.img bs=1M count=2048 status=progress
+
+============================================================
+Command Output
+============================================================
+
+2035286016 bytes (2.0 GB, 1.9 GiB) copied, 1.0008 s, 2.0 GB/s
+2048+0 records in
+2048+0 records out
+2147483648 bytes (2.1 GB, 2.0 GiB) copied, 1.05185 s, 2.0 GB/s
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• A 2 GB test file was successfully written to the mounted RAID 0
+  filesystem.
+
+• No I/O errors occurred during the write operation.
+
+• The measured write throughput was approximately 2.0 GB/s.
+
+• The RAID array successfully handled a large sequential write
+  workload.
+
+• The filesystem and RAID array operated correctly throughout the
+  write operation.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array successfully completed a large sequential write
+operation without errors. This confirms that the logical RAID
+device, filesystem, and underlying member disks are functioning
+correctly and are capable of handling application write requests.

@@ -1,0 +1,94 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 14
+Evidence Name   : Verify RAID Metadata on Member Disks
+
+============================================================
+Objective
+============================================================
+
+To examine the RAID metadata (superblock) stored on each member
+disk and verify that both disks contain consistent RAID
+configuration information.
+
+============================================================
+Commands Executed
+============================================================
+
+$ sudo mdadm --examine /dev/sdb
+
+$ sudo mdadm --examine /dev/sde
+
+============================================================
+Command Output
+============================================================
+
+/dev/sdb
+
+Magic            : a92b4efc
+Version          : 1.2
+Array UUID       : d7e0578a:d0fe74ca:ceddcdc8:eeb78498
+Raid Level       : raid0
+Raid Devices     : 2
+State            : clean
+Chunk Size       : 512K
+Device Role      : Active device 0
+Array State      : AA
+
+------------------------------------------------------------
+
+/dev/sde
+
+Magic            : a92b4efc
+Version          : 1.2
+Array UUID       : d7e0578a:d0fe74ca:ceddcdc8:eeb78498
+Raid Level       : raid0
+Raid Devices     : 2
+State            : clean
+Chunk Size       : 512K
+Device Role      : Active device 1
+Array State      : AA
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• RAID metadata (superblock) is present on both member disks.
+
+• Both disks belong to the same RAID array, confirmed by the
+  identical Array UUID.
+
+• The metadata version is 1.2 on both disks.
+
+• Both disks report RAID Level 0.
+
+• The RAID array is in a clean state.
+
+• The configured chunk size is 512 KB.
+
+• Device roles are correctly assigned:
+    - /dev/sdb → Active Device 0
+    - /dev/sde → Active Device 1
+
+• The Array State "AA" indicates that both RAID members are
+  active and healthy.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID metadata has been successfully verified on both member
+disks. The metadata is consistent across the RAID members,
+confirming that the RAID 0 array has been correctly configured and
+is operating as expected.

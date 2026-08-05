@@ -1,0 +1,62 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 06
+Evidence Name   : Create RAID 0 Array
+
+============================================================
+Objective
+============================================================
+
+To create a RAID 0 array using two physical disks (/dev/sdb and
+/dev/sde) with Linux Software RAID (mdadm) and verify that the
+array is successfully initialized.
+
+============================================================
+Command Executed
+============================================================
+
+$ sudo mdadm --create /dev/md1 --level=0 --raid-devices=2 /dev/sdb /dev/sde
+
+============================================================
+Command Output
+============================================================
+
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md1 started.
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• A new RAID 0 array named /dev/md1 was successfully created.
+
+• The array uses RAID Level 0 (Striping).
+
+• Linux mdadm automatically selected metadata version 1.2.
+
+• RAID metadata (superblock) was written to both member disks.
+
+• The operating system now recognizes /dev/md1 as a new logical
+  RAID device.
+
+• The array is ready for verification, filesystem creation, and
+  further validation.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array was successfully created using Linux Software
+RAID (mdadm). The next step is to verify that the RAID array is
+active and operating correctly using RAID status commands.

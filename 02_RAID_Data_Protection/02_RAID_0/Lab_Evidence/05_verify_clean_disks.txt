@@ -1,0 +1,64 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 05
+Evidence Name   : Verify RAID Metadata Removal
+
+============================================================
+Objective
+============================================================
+
+To verify that the selected disks are free from RAID metadata
+before creating a new RAID 0 array.
+
+============================================================
+Commands Executed
+============================================================
+
+$ lsblk
+
+$ sudo mdadm --examine /dev/sdb
+
+$ sudo mdadm --examine /dev/sde
+
+============================================================
+Command Output
+============================================================
+
+/dev/sdb
+mdadm: No md superblock detected on /dev/sdb.
+
+/dev/sde
+mdadm: No md superblock detected on /dev/sde.
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID arrays were successfully stopped.
+
+• Both disks are now visible as normal block devices.
+
+• No MD RAID superblock is present on /dev/sdb.
+
+• No MD RAID superblock is present on /dev/sde.
+
+• The selected disks are clean and ready for creating a new RAID 0 array.
+
+============================================================
+Conclusion
+============================================================
+
+The selected disks were successfully verified and contain no
+existing RAID metadata. They are ready to be used for creating
+a new RAID 0 array.

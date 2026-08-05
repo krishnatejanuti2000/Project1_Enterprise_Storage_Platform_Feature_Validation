@@ -1,0 +1,72 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 11
+Evidence Name   : Verify Mounted RAID Filesystem
+
+============================================================
+Objective
+============================================================
+
+To verify that the RAID 0 filesystem has been successfully mounted
+and is available for use by the operating system.
+
+============================================================
+Command Executed
+============================================================
+
+$ df -h
+
+============================================================
+Command Output
+============================================================
+
+Filesystem                         Size  Used Avail Use% Mounted on
+tmpfs                               13G  6.7M   13G   1% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv   98G   18G   76G  19% /
+tmpfs                               65G   16K   65G   1% /dev/shm
+none                               1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs                               65G   68K   65G   1% /tmp
+none                               1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service
+/dev/sda2                          2.0G  262M  1.6G  15% /boot
+none                               1.0M     0  1.0M   0% /run/credentials/systemd-networkd.service
+tmpfs                               13G   64K   13G   1% /run/user/60579
+tmpfs                               13G   56K   13G   1% /run/user/1000
+/dev/md1                           549G  2.1M  521G   1% /mnt/raid0
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID device /dev/md1 is successfully mounted.
+
+• The filesystem is mounted at /mnt/raid0.
+
+• The mounted filesystem provides approximately 549 GB of usable
+  storage.
+
+• The filesystem currently uses approximately 2.1 MB, which is
+  expected after formatting.
+
+• Approximately 521 GB remains available for storing data.
+
+• The operating system recognizes the RAID array as a normal
+  mounted filesystem.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array has been successfully mounted and verified.
+The logical storage device is now ready for functional read/write
+testing and performance validation.

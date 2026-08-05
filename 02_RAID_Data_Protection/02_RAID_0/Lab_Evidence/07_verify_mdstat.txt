@@ -1,0 +1,72 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 07
+Evidence Name   : Verify RAID Array Status
+
+============================================================
+Objective
+============================================================
+
+To verify that the newly created RAID 0 array is active, healthy,
+and correctly recognized by the Linux MD (Multiple Device)
+subsystem.
+
+============================================================
+Command Executed
+============================================================
+
+$ cat /proc/mdstat
+
+============================================================
+Command Output
+============================================================
+
+Personalities : [raid0] [raid1] [raid4] [raid5] [raid6] [raid10] [linear]
+
+md1 : active raid0 sde[1] sdb[0]
+      585672704 blocks super 1.2 512k chunks
+
+unused devices: <none>
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID array /dev/md1 is active and operational.
+
+• The RAID level is RAID 0 (Striping).
+
+• The array consists of two member disks:
+  - /dev/sdb (Device Role 0)
+  - /dev/sde (Device Role 1)
+
+• The RAID metadata version is 1.2.
+
+• The configured chunk size is 512 KB.
+
+• The array contains 585672704 blocks.
+
+• No unused RAID devices are present.
+
+• The Linux MD subsystem successfully assembled and recognized
+  the RAID array.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array has been successfully activated and verified.
+The array is healthy and ready for the next phase of validation,
+which includes inspecting detailed RAID configuration, creating
+a filesystem, and performing read/write validation tests.

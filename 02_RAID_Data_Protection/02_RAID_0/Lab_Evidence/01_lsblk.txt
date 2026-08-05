@@ -1,0 +1,84 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 01
+Evidence Name   : Block Device Verification
+
+============================================================
+Objective
+============================================================
+
+To identify all available block devices in the system and verify
+which disks are available for RAID 0 creation.
+
+============================================================
+Command Executed
+============================================================
+
+$ lsblk
+
+============================================================
+Command Output
+============================================================
+
+NAME                      MAJ:MIN RM   SIZE RO TYPE  MOUNTPOINTS
+loop0                       7:0    0     4K  1 loop  /snap/bare/5
+loop1                       7:1    0  66.8M  1 loop  /snap/core24/1643
+loop2                       7:2    0    20M  1 loop  /snap/desktop-security-center/151
+loop3                       7:3    0 252.8M  1 loop  /snap/firefox/8595
+loop4                       7:4    0 252.4M  1 loop  /snap/firefox/8633
+loop5                       7:5    0  16.5M  1 loop  /snap/firmware-updater/226
+loop6                       7:6    0 614.5M  1 loop  /snap/gnome-46-2404/164
+loop7                       7:7    0  91.7M  1 loop  /snap/gtk-common-themes/1535
+loop8                       7:8    0   395M  1 loop  /snap/mesa-2404/1165
+loop9                       7:9    0   402M  1 loop  /snap/mesa-2404/1839
+loop10                      7:10   0  18.8M  1 loop  /snap/prompting-client/222
+loop11                      7:11   0  50.1M  1 loop  /snap/snapd/27406
+loop12                      7:12   0  50.1M  1 loop  /snap/snapd/27591
+loop13                      7:13   0   828K  1 loop  /snap/snapd-desktop-integration/387
+loop14                      7:14   0   828K  1 loop  /snap/snapd-desktop-integration/391
+loop15                      7:15   0 210.8M  1 loop  /snap/thunderbird/1170
+sda                         8:0    0 465.8G  0 disk
+├─sda1                      8:1    0     1M  0 part
+├─sda2                      8:2    0     2G  0 part  /boot
+└─sda3                      8:3    0 463.8G  0 part
+  └─ubuntu--vg-ubuntu--lv 252:0    0   100G  0 lvm   /
+sdb                         8:16   0 279.4G  0 disk
+└─md127                     9:127  0 558.5G  0 raid0
+sdc                         8:32   0 167.7G  0 disk
+└─md0                       9:0    0 405.9G  0 raid0
+sdd                         8:48   0 238.5G  0 disk
+└─md0                       9:0    0 405.9G  0 raid0
+sde                         8:64   0 279.4G  0 disk
+└─md127                     9:127  0 558.5G  0 raid0
+sr0                        11:0    1 1024M  1 rom
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The operating system is installed on /dev/sda.
+• The root filesystem is hosted on an LVM logical volume.
+• RAID array md127 is currently built using /dev/sdb and /dev/sde.
+• RAID array md0 is currently built using /dev/sdc and /dev/sdd.
+• No unallocated disks are available for creating a new RAID 0 array.
+• Existing RAID arrays must be stopped and cleaned before reusing the disks.
+
+============================================================
+Conclusion
+============================================================
+
+The storage environment was successfully verified. Existing RAID
+arrays were identified, and the current disk usage is understood.
+The next step is to inspect the RAID status and safely clean the
+required disks before creating a new RAID 0 array.

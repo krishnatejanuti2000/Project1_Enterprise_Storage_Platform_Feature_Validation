@@ -1,0 +1,55 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 03
+Evidence Name   : Stop Existing RAID Array (md127)
+
+============================================================
+Objective
+============================================================
+
+To safely stop the existing RAID 0 array (md127) so that its
+member disks can be reused for creating a new RAID 0 array during
+the validation exercise.
+
+============================================================
+Command Executed
+============================================================
+
+$ sudo mdadm --stop /dev/md127
+
+============================================================
+Command Output
+============================================================
+
+mdadm: stopped /dev/md127
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID 0 array /dev/md127 was successfully stopped.
+• The array is no longer active in the Linux MD subsystem.
+• The member disks (/dev/sdb and /dev/sde) are now detached from the
+  running RAID array.
+• RAID metadata is still present on the member disks and must be
+  removed before reusing them for a new RAID configuration.
+
+============================================================
+Conclusion
+============================================================
+
+The existing RAID array (md127) was successfully stopped without
+errors. The next step is to stop any remaining RAID arrays (if
+required) and then remove the RAID metadata from the member disks
+before creating a new RAID 0 array.

@@ -1,0 +1,105 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 08
+Evidence Name   : Detailed RAID Configuration Verification
+
+============================================================
+Objective
+============================================================
+
+To obtain detailed information about the RAID 0 array, verify its
+configuration, health, member disks, metadata, and operational
+status after successful creation.
+
+============================================================
+Command Executed
+============================================================
+
+$ sudo mdadm --detail /dev/md1
+
+============================================================
+Command Output
+============================================================
+
+/dev/md1:
+           Version : 1.2
+     Creation Time : Wed Aug  5 13:10:57 2026
+        Raid Level : raid0
+        Array Size : 585672704 (558.54 GiB 599.73 GB)
+      Raid Devices : 2
+     Total Devices : 2
+       Persistence : Superblock is persistent
+
+       Update Time : Wed Aug  5 13:10:57 2026
+             State : clean
+    Active Devices : 2
+   Working Devices : 2
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : original
+        Chunk Size : 512K
+
+Consistency Policy : none
+
+              Name : winteck:1  (local to host winteck)
+              UUID : d7e0578a:d0fe74ca:ceddcdc8:eeb78498
+            Events : 0
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync   /dev/sdb
+       1       8       64        1      active sync   /dev/sde
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID array is running RAID Level 0 (Striping).
+
+• Metadata Version 1.2 is used.
+
+• The RAID array size is 558.54 GiB (599.73 GB).
+
+• Two RAID devices are configured.
+
+• Both configured devices are present and operational.
+
+• RAID State is "clean", indicating that the array is healthy.
+
+• Active Devices = 2.
+
+• Working Devices = 2.
+
+• Failed Devices = 0.
+
+• Spare Devices = 0.
+
+• The chunk size is configured as 512 KB.
+
+• RAID metadata is persistent and stored on the member disks.
+
+• Device Roles:
+    - RaidDevice 0 → /dev/sdb
+    - RaidDevice 1 → /dev/sde
+
+• The RAID array has a unique UUID that identifies the array.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 array has been successfully validated. All member disks
+are active and synchronized, the RAID configuration is healthy,
+and no failed or spare devices are present. The array is ready for
+filesystem creation and functional testing.

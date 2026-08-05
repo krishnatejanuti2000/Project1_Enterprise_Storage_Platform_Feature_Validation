@@ -1,0 +1,55 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 04
+Evidence Name   : Stop Existing RAID Array (md0)
+
+============================================================
+Objective
+============================================================
+
+To safely stop the existing RAID 0 array (md0) so that its member
+disks can be reused for future RAID validation activities.
+
+============================================================
+Command Executed
+============================================================
+
+$ sudo mdadm --stop /dev/md0
+
+============================================================
+Command Output
+============================================================
+
+mdadm: stopped /dev/md0
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID 0 array /dev/md0 was successfully stopped.
+• The array is no longer active in the Linux MD subsystem.
+• The member disks (/dev/sdc and /dev/sdd) are now detached from the
+  RAID array.
+• RAID metadata is still present on the member disks and must be
+  removed before the disks can be reused.
+
+============================================================
+Conclusion
+============================================================
+
+The existing RAID array (md0) was successfully stopped. All RAID
+arrays in the system have now been deactivated. The next step is
+to erase the RAID superblock (metadata) from the member disks so
+they can be used for creating a new RAID 0 array.
+

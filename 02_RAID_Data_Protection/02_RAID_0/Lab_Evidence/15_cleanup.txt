@@ -1,0 +1,121 @@
+============================================================
+Project 1 - Enterprise Storage Platform Feature Validation
+============================================================
+
+Module          : Module 2 - RAID Data Protection
+Topic           : RAID 0
+Lab             : RAID 0 Creation and Validation
+Evidence ID     : 15
+Evidence Name   : RAID 0 Cleanup and Environment Restoration
+
+============================================================
+Objective
+============================================================
+
+To safely restore the system to its original state after
+completing RAID 0 validation by unmounting the filesystem,
+stopping the RAID array, verifying removal of RAID metadata,
+and confirming that the member disks are available for future
+validation activities.
+
+============================================================
+Commands Executed
+============================================================
+
+$ sudo umount /mnt/raid0
+
+$ sudo mdadm --stop /dev/md1
+
+$ sudo mdadm --zero-superblock /dev/sdb
+
+$ sudo mdadm --zero-superblock /dev/sde
+
+$ sudo mdadm --examine /dev/sdb
+
+$ sudo mdadm --examine /dev/sde
+
+$ lsblk
+
+============================================================
+Command Output
+============================================================
+
+$ sudo umount /mnt/raid0
+
+(No output)
+
+------------------------------------------------------------
+
+$ sudo mdadm --stop /dev/md1
+
+mdadm: stopped /dev/md1
+
+------------------------------------------------------------
+
+$ sudo mdadm --zero-superblock /dev/sdb
+
+mdadm: Unrecognised md component device - /dev/sdb
+
+------------------------------------------------------------
+
+$ sudo mdadm --zero-superblock /dev/sde
+
+mdadm: Unrecognised md component device - /dev/sde
+
+------------------------------------------------------------
+
+$ sudo mdadm --examine /dev/sdb
+
+mdadm: No md superblock detected on /dev/sdb.
+
+------------------------------------------------------------
+
+$ sudo mdadm --examine /dev/sde
+
+mdadm: No md superblock detected on /dev/sde.
+
+------------------------------------------------------------
+
+$ lsblk
+
+sda   Operating System Disk
+sdb   Available
+sdc   Available
+sdd   Available
+sde   Available
+
+============================================================
+Validation Result
+============================================================
+
+PASS
+
+============================================================
+Observations
+============================================================
+
+• The RAID filesystem was successfully unmounted.
+
+• The RAID 0 array (/dev/md1) was successfully stopped.
+
+• The zero-superblock command reported that the selected disks
+  were not recognized as active MD component devices.
+
+• Subsequent verification using mdadm --examine confirmed that
+  no RAID superblock exists on either /dev/sdb or /dev/sde.
+
+• The absence of RAID metadata indicates that both disks are
+  already clean and ready for future RAID creation.
+
+• The final lsblk output confirms that all RAID devices have
+  been removed and the physical disks are visible as standalone
+  block devices.
+
+============================================================
+Conclusion
+============================================================
+
+The RAID 0 validation environment was successfully cleaned and
+restored. The RAID array was removed, the member disks contain
+no RAID metadata, and the storage environment is ready for
+subsequent RAID validation exercises.
