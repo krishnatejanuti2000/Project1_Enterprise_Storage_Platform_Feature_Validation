@@ -1,0 +1,28 @@
+============================================================
+RAID 1 Validation Lab
+Step 08 - Create Filesystem
+============================================================
+
+Command:
+--------
+
+sudo mkfs.ext4 /dev/md1
+
+Purpose:
+--------
+
+Create an ext4 filesystem on the RAID 1 logical device.
+
+Observation:
+------------
+
+- Existing filesystem signature was detected from a previous lab.
+- The filesystem was intentionally overwritten.
+- A new ext4 filesystem was created successfully.
+
+Result:
+-------
+
+PASS
+
+Filesystem created successfully on the RAID 1 array.

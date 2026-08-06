@@ -1,0 +1,27 @@
+============================================================
+RAID 1 Validation Lab
+Step 03 - Remove Inactive RAID Array
+============================================================
+
+Command:
+--------
+
+sudo mdadm --stop /dev/md127
+
+Purpose:
+--------
+
+Stop the automatically assembled inactive RAID device to avoid conflicts during RAID 1 creation.
+
+Observation:
+------------
+
+- md127 was successfully stopped.
+- The inactive RAID device no longer exists.
+
+Result:
+-------
+
+PASS
+
+Inactive RAID array removed successfully.

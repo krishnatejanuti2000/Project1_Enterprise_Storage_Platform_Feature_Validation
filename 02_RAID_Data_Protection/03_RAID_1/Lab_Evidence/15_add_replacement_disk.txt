@@ -1,0 +1,28 @@
+============================================================
+RAID 1 Validation Lab
+Step 15 - Add Replacement Disk
+============================================================
+
+Commands:
+---------
+
+sudo mdadm --manage /dev/md1 --add /dev/sde
+
+Purpose:
+--------
+
+Add the replacement disk to the RAID array and initiate recovery.
+
+Observation:
+------------
+
+- /dev/sde was successfully added to the RAID array.
+- Automatic recovery (rebuild) started immediately.
+- The RAID controller began copying data from the healthy mirror member to the replacement disk.
+
+Result:
+-------
+
+PASS
+
+Replacement disk successfully added and recovery initiated.

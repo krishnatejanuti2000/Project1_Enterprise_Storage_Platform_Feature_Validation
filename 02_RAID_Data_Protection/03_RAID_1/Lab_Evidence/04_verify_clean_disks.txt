@@ -1,0 +1,32 @@
+============================================================
+RAID 1 Validation Lab
+Step 04 - Verify Clean Member Disks
+============================================================
+
+Commands:
+---------
+
+lsblk
+
+sudo mdadm --examine /dev/sdb
+
+sudo mdadm --examine /dev/sde
+
+Purpose:
+--------
+
+Verify that both member disks contain no RAID metadata before creating the RAID 1 array.
+
+Observation:
+------------
+
+- Both disks are visible as standalone block devices.
+- No RAID superblocks were detected.
+- Disks are ready for RAID creation.
+
+Result:
+-------
+
+PASS
+
+Both disks successfully verified as clean RAID members.

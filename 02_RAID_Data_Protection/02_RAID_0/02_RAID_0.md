@@ -1,231 +1,465 @@
-# RAID 0
+# RAID 0 (Striping)
 
-## Module
+## Project
 
-Project 1 – Enterprise Storage Platform Feature Validation
+**Project 1 – Enterprise Storage Platform Feature Validation**
 
-Module 2 – RAID Data Protection
-
-Topic: RAID 0
+**Module 2 – RAID Data Protection**
 
 ---
 
 # 1. Introduction
 
-RAID 0 is the simplest RAID level and is designed to maximize storage performance by distributing data across multiple disks. It uses a technique called **striping**, where data is divided into blocks and written across all member disks simultaneously.
+Enterprise applications continuously generate and process large amounts of data. Modern workloads such as databases, virtualization, video editing, scientific computing, and analytics demand higher storage throughput than a single disk can provide.
 
-RAID 0 does **not** provide data redundancy or fault tolerance. It is intended for workloads where performance is more important than data protection.
+A single HDD or SSD has physical limitations in terms of bandwidth, IOPS, and latency. As workloads increase, a single disk often becomes a performance bottleneck.
 
----
+To overcome this limitation, RAID 0 was introduced to distribute I/O operations across multiple disks using **block-level striping**, allowing several disks to work simultaneously and significantly improving storage performance.
 
-# 2. Why RAID 0 Was Introduced
-
-A single disk has limitations in terms of read and write performance because all I/O requests are handled by one storage device.
-
-To improve performance, RAID 0 was introduced.
-
-Instead of writing all data to one disk, RAID 0 distributes data across multiple disks, allowing them to work simultaneously.
-
-This parallel operation increases overall throughput and reduces the time required for read and write operations.
+Unlike other RAID levels, RAID 0 focuses entirely on performance and capacity. It does **not** provide data redundancy or fault tolerance.
 
 ---
 
-# 3. What is RAID 0?
+# 2. Why RAID 0 Was Invented
 
-RAID 0 is a RAID level that combines two or more physical disks into a single logical storage device using **block-level striping**.
+The primary goal behind RAID 0 was to improve storage performance.
 
-The operating system accesses one logical RAID device while the RAID controller distributes the data across all member disks.
-
-Example:
+Consider a system with only one disk.
 
 ```
 Application
       │
       ▼
-   Logical RAID 0
+ Single Disk
+```
+
+Every read and write request must be handled by that one disk.
+
+As the workload increases:
+
+- The disk becomes a bottleneck.
+- Applications wait longer for I/O completion.
+- Throughput is limited by a single device.
+
+Engineers solved this problem by allowing multiple disks to participate in every I/O request.
+
+Instead of using one disk:
+
+```
+Application
+      │
+      ▼
+ RAID Controller
       │
  ┌────┴────┐
  ▼         ▼
-Disk 1   Disk 2
+Disk A   Disk B
 ```
+
+The workload is divided across multiple disks, enabling parallel I/O.
+
+---
+
+# 3. What is RAID 0?
+
+RAID 0 is a RAID level that combines multiple physical disks into a single logical storage device using **block-level striping**.
+
+Instead of writing all data to one disk, the RAID controller divides the data into blocks (called stripes) and distributes those blocks across all participating disks.
+
+The operating system sees only one logical RAID device.
 
 ---
 
 # 4. RAID 0 Architecture
 
-A RAID 0 array consists of:
+```
+                Application
+                      │
+                      ▼
+              Operating System
+                      │
+                      ▼
+             RAID Controller
+                │         │
+        ┌───────┘         └───────┐
+        ▼                         ▼
+     Disk A                    Disk B
+```
 
-- Two or more physical disks
-- One logical RAID device
-- Striping mechanism
-- RAID controller (Hardware RAID or Software RAID)
+Applications communicate with the logical RAID device.
 
-The RAID controller is responsible for distributing data across all member disks.
+The RAID controller decides where each block will be written.
 
 ---
 
-# 5. Block-Level Striping
+# 5. Core Technique – Striping
 
 RAID 0 uses **block-level striping**.
 
-Instead of storing an entire file on one disk, the RAID controller divides the file into fixed-size blocks (chunks) and distributes them across all member disks.
+Example:
+
+```
+Application Data
+
+A B C D E F G H
+```
+
+After striping:
+
+```
+Disk A
+
+A
+C
+E
+G
+
+------------------
+
+Disk B
+
+B
+D
+F
+H
+```
+
+Each disk stores different portions of the data.
+
+No duplicate copies are maintained.
+
+---
+
+# 6. RAID Controller Responsibilities
+
+The RAID controller is responsible for:
+
+- Creating the RAID array.
+- Dividing data into stripes.
+- Distributing stripes across member disks.
+- Presenting one logical RAID device to the operating system.
+- Managing RAID metadata.
+- Handling read and write requests.
+
+Unlike RAID 1, the RAID controller does **not** maintain mirror copies.
+
+---
+
+# 7. Capacity Calculation
 
 Example:
 
 ```
-File
+Disk A = 500 GB
+
+Disk B = 500 GB
+```
+
+Raw Capacity
+
+```
+500 + 500
+
+=
+
+1000 GB
+```
+
+Usable Capacity
+
+```
+1000 GB
+```
+
+Since RAID 0 stores only user data and no redundancy information, all available storage capacity is usable.
+
+---
+
+## Formula
+
+```
+Usable Capacity
+
+=
+
+Sum of all member disks
+```
+
+Storage Efficiency:
+
+```
+100%
+```
+
+---
+
+# 8. Read Flow
+
+Suppose an application requests:
+
+```
+Read 1 GB
+```
+
+The RAID controller determines where each stripe resides.
+
+```
+Application
 
 ↓
 
-Chunk 1 → Disk 1
+RAID Controller
 
-Chunk 2 → Disk 2
+↓
 
-Chunk 3 → Disk 1
+Disk A → Block 1
 
-Chunk 4 → Disk 2
+Disk B → Block 2
 ```
 
-This enables multiple disks to process I/O operations simultaneously.
+Both disks read simultaneously.
+
+The RAID controller reassembles the blocks and returns the complete data to the application.
+
+This parallel read operation improves throughput.
 
 ---
 
-# 6. RAID 0 Read Operation
+# 9. Write Flow
 
-During a read operation:
-
-1. The application sends a read request.
-2. The operating system accesses the logical RAID device.
-3. The RAID controller determines which blocks are stored on each disk.
-4. Multiple disks read their respective blocks simultaneously.
-5. The RAID controller combines the data and returns it to the operating system.
-
-Because multiple disks participate in the read operation, RAID 0 provides improved read performance.
-
----
-
-# 7. RAID 0 Write Operation
-
-During a write operation:
-
-1. The application issues a write request.
-2. The operating system writes to the logical RAID device.
-3. The RAID controller divides the incoming data into blocks.
-4. The blocks are distributed across all member disks.
-5. All disks write their assigned blocks simultaneously.
-
-This parallel write operation significantly improves write throughput.
-
----
-
-# 8. Capacity Calculation
-
-RAID 0 uses the complete capacity of all member disks.
-
-Formula:
+Suppose the application writes:
 
 ```
-Usable Capacity = Sum of all member disk capacities
+Write 1 GB
 ```
+
+The RAID controller divides the data into stripes.
 
 Example:
 
-| Number of Disks | Capacity per Disk | Usable Capacity |
-|-----------------|-------------------|-----------------|
-| 2 | 1 TB | 2 TB |
-| 4 | 2 TB | 8 TB |
-| 8 | 500 GB | 4 TB |
+```
+Disk A
 
-No storage space is reserved for redundancy.
+500 MB
 
----
+--------------
 
-# 9. Performance Characteristics
+Disk B
 
-RAID 0 provides excellent storage performance because all member disks participate in read and write operations.
+500 MB
+```
 
-Characteristics:
+Both disks perform the write operation simultaneously.
 
-- High read performance
-- High write performance
-- Increased throughput
-- Improved I/O parallelism
-
-Performance generally improves as more disks are added, subject to controller and workload limitations.
+After all stripes are written successfully, the RAID controller acknowledges the write completion to the operating system.
 
 ---
 
-# 10. Fault Tolerance
+# 10. Read Performance
 
-RAID 0 provides **no fault tolerance**.
+RAID 0 provides excellent read performance because multiple disks participate in servicing read requests.
 
-If **any one member disk fails**, the entire RAID array becomes unavailable because portions of every file are distributed across multiple disks.
+Advantages include:
 
-As a result:
+- Parallel reads
+- Higher throughput
+- Better bandwidth
+- Reduced read bottlenecks
 
-- Data cannot be reconstructed.
-- The RAID array fails.
-- Recovery generally requires restoring data from backup.
-
----
-
-# 11. Advantages
-
-- Excellent read performance
-- Excellent write performance
-- 100% usable storage capacity
-- Simple RAID implementation
-- No parity calculations
-- No mirroring overhead
+As more disks participate, read performance generally improves.
 
 ---
 
-# 12. Disadvantages
+# 11. Write Performance
 
-- No data protection
-- No fault tolerance
-- Failure of one disk results in loss of the entire array
-- Unsuitable for critical business data
+RAID 0 also provides excellent write performance.
 
----
+Because the RAID controller distributes data across multiple disks:
 
-# 13. Enterprise Use Cases
+- All member disks perform writes simultaneously.
+- Each disk writes only a portion of the data.
+- Overall write throughput increases significantly.
 
-RAID 0 is suitable for workloads where performance is the highest priority and data can be recreated or restored.
-
-Examples:
-
-- Temporary data
-- Scratch storage
-- Video rendering
-- Scientific simulations
-- Cache storage
-- Test environments
-
-RAID 0 is generally **not recommended** for storing business-critical data.
+No parity calculations or mirror copies are required.
 
 ---
 
-# 14. Limitations
+# 12. Healthy State
 
-- Minimum of two disks required.
+A healthy RAID 0 array means:
+
+- All member disks are operational.
+- Every stripe is accessible.
+- The logical RAID device is fully functional.
+
+```
+Disk A ✅
+
+Disk B ✅
+```
+
+Applications can access all data normally.
+
+---
+
+# 13. Disk Failure Scenario
+
+Suppose:
+
+```
+Disk A ❌ Failed
+
+Disk B ✅ Healthy
+```
+
+What happens?
+
+Although Disk B is still operational, only part of every file remains.
+
+Example:
+
+```
+Disk A
+
+A
+C
+E
+G
+
+-------------
+
+Disk B
+
+B
+D
+F
+H
+```
+
+After Disk A fails:
+
+```
+?
+
+B
+
+?
+
+D
+
+?
+
+F
+
+?
+
+H
+```
+
+Half of the stripes are missing.
+
+The RAID controller cannot reconstruct the original data.
+
+The RAID array fails.
+
+Applications lose access to the logical device.
+
+---
+
+# 14. Why RAID 0 Cannot Rebuild
+
+Unlike RAID 1 or RAID 5, RAID 0 stores:
+
+- No mirror copies
+- No parity information
+- No redundant blocks
+
+When a disk fails, the missing stripes cannot be reconstructed.
+
+Therefore:
+
+- No rebuild is possible.
+- The failed disk must be replaced.
+- The RAID array must be recreated.
+- Data must be restored from backup.
+
+---
+
+# 15. Advantages
+
+- Excellent read performance.
+- Excellent write performance.
+- 100% storage efficiency.
+- Maximum utilization of available capacity.
+- Simple RAID implementation.
+- No parity overhead.
+- No mirroring overhead.
+
+---
+
+# 16. Disadvantages
+
+- No fault tolerance.
 - No redundancy.
-- No rebuild capability after disk failure.
-- Reliability decreases as the number of disks increases because failure of any member causes array failure.
+- Failure of one disk causes failure of the entire array.
+- No rebuild capability.
+- Not suitable for critical business data without backups.
 
 ---
 
-# 15. Key Takeaways
+# 17. Enterprise Use Cases
 
-- RAID 0 uses block-level striping.
-- RAID 0 maximizes storage performance.
-- RAID 0 utilizes 100% of raw disk capacity.
-- RAID 0 provides no fault tolerance.
-- Failure of a single disk results in failure of the entire RAID array.
-- RAID 0 is best suited for performance-oriented workloads.
+RAID 0 is suitable for workloads where performance is more important than data protection.
+
+Examples include:
+
+- Video editing scratch disks
+- Temporary rendering storage
+- Scientific computing
+- High-performance computing (HPC)
+- Temporary analytics datasets
+- Test environments
+- Benchmarking
 
 ---
 
-# Summary
+# 18. Customer Scenario
 
-RAID 0 is a performance-oriented RAID level that distributes data across multiple disks using block-level striping. By allowing multiple disks to participate in read and write operations simultaneously, RAID 0 significantly improves storage throughput and utilizes the full capacity of all member disks. However, because it provides no redundancy or fault tolerance, it should only be used for workloads where maximum performance is required and data loss is acceptable or recoverable through backups.
+### Customer Requirement
+
+A media production company processes large video files and requires maximum storage throughput.
+
+The source videos are backed up elsewhere.
+
+### Recommendation
+
+RAID 0
+
+### Reason
+
+The primary requirement is performance rather than redundancy. Since the data already exists in backup storage, RAID 0 provides the highest throughput while utilizing 100% of the available capacity.
+
+---
+
+# 19. Practical Validation
+
+During this module, RAID 0 was validated using Linux Software RAID (`mdadm`).
+
+Validation included:
+
+- RAID creation
+- RAID verification
+- Filesystem creation
+- Mount validation
+- Test data generation
+- Performance observation
+- RAID metadata verification
+- Cleanup
+
+All practical evidence is documented under the **Lab_Evidence** directory.
+
+---
+
+# 20. Summary
+
+RAID 0 is a performance-oriented RAID level that uses block-level striping to distribute data across multiple disks. By allowing multiple disks to participate in every read and write operation, RAID 0 delivers excellent throughput and fully utilizes available storage capacity. However, because it provides no redundancy, the failure of a single member disk causes the entire array to fail. RAID 0 is therefore best suited for high-performance workloads where data protection is provided through other mechanisms, such as backups.

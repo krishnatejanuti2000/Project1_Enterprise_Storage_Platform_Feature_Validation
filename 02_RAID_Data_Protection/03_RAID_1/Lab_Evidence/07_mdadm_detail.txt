@@ -1,0 +1,32 @@
+============================================================
+RAID 1 Validation Lab
+Step 07 - Verify RAID Configuration
+============================================================
+
+Command:
+--------
+
+sudo mdadm --detail /dev/md1
+
+Purpose:
+--------
+
+Display detailed RAID configuration and verify that the array was created correctly.
+
+Observation:
+------------
+
+- RAID Level: RAID 1
+- Active Devices: 2
+- Working Devices: 2
+- Failed Devices: 0
+- Internal write-intent bitmap is enabled.
+- Initial synchronization completed successfully.
+- Array state is healthy.
+
+Result:
+-------
+
+PASS
+
+RAID configuration verified successfully.

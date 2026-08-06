@@ -1,0 +1,32 @@
+============================================================
+RAID 1 Validation Lab
+Step 12 - Verify Degraded Mode
+============================================================
+
+Commands:
+---------
+
+cat /proc/mdstat
+
+sudo mdadm --detail /dev/md1
+
+Purpose:
+--------
+
+Verify that the RAID array remains operational after a member disk failure.
+
+Observation:
+------------
+
+- RAID status changed to degraded.
+- Active Devices: 1
+- Working Devices: 1
+- Failed Devices: 1
+- Data remained available through the surviving mirror member.
+
+Result:
+-------
+
+PASS
+
+RAID 1 fault tolerance verified successfully.

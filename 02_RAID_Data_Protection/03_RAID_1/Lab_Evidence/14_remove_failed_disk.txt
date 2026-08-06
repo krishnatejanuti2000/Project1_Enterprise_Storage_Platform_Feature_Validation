@@ -1,0 +1,32 @@
+============================================================
+RAID 1 Validation Lab
+Step 14 - Remove Failed RAID Member
+============================================================
+
+Commands:
+---------
+
+sudo mdadm --manage /dev/md1 --remove /dev/sde
+
+cat /proc/mdstat
+
+sudo mdadm --detail /dev/md1
+
+Purpose:
+--------
+
+Remove the failed RAID member from the array before adding a replacement disk.
+
+Observation:
+------------
+
+- The failed member (/dev/sde) was successfully removed.
+- RAID continued operating with a single healthy mirror member.
+- The array remained in degraded mode while waiting for a replacement disk.
+
+Result:
+-------
+
+PASS
+
+Failed RAID member removed successfully.

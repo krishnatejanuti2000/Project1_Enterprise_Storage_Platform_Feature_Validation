@@ -1,0 +1,33 @@
+============================================================
+RAID 1 Validation Lab
+Step 09 - Mount RAID Filesystem
+============================================================
+
+Commands:
+---------
+
+sudo mkdir -p /mnt/raid1
+
+sudo mount /dev/md1 /mnt/raid1
+
+df -h
+
+Purpose:
+--------
+
+Mount the RAID 1 filesystem and verify that it is accessible through the operating system.
+
+Observation:
+------------
+
+- Mount point (/mnt/raid1) was created.
+- RAID filesystem mounted successfully.
+- The mounted filesystem appeared in the output of df -h.
+- The logical RAID device is ready for I/O operations.
+
+Result:
+-------
+
+PASS
+
+RAID 1 filesystem mounted successfully.

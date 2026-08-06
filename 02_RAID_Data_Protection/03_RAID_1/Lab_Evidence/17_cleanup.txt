@@ -1,0 +1,42 @@
+============================================================
+RAID 1 Validation Lab
+Step 17 - Cleanup Environment
+============================================================
+
+Commands:
+---------
+
+sudo umount /mnt/raid1
+
+sudo mdadm --stop /dev/md1
+
+sudo mdadm --zero-superblock /dev/sdb
+
+sudo mdadm --zero-superblock /dev/sde
+
+lsblk
+
+sudo mdadm --examine /dev/sdb
+
+sudo mdadm --examine /dev/sde
+
+Purpose:
+--------
+
+Return the environment to a clean state after completing RAID 1 validation.
+
+Observation:
+------------
+
+- Filesystem unmounted successfully.
+- RAID array stopped successfully.
+- RAID metadata removed from both member disks.
+- Both disks returned to standalone block devices.
+- No RAID superblocks were detected.
+
+Result:
+-------
+
+PASS
+
+Lab environment successfully cleaned and restored.

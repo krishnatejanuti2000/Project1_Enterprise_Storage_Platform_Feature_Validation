@@ -1,284 +1,310 @@
 # Troubleshooting – RAID 0
 
-## Module
+## Project
 
-Project 1 – Enterprise Storage Platform Feature Validation
+**Project 1 – Enterprise Storage Platform Feature Validation**
 
-Module 2 – RAID Data Protection
+**Module 2 – RAID Data Protection**
 
-Topic: RAID 0
-
----
-
-# Introduction
-
-This document covers common issues encountered while creating, validating, managing, and troubleshooting RAID 0 arrays in Linux environments using `mdadm`.
-
-Although RAID 0 is simple to configure, incorrect disk selection, leftover RAID metadata, filesystem issues, and hardware failures can prevent successful deployment or cause complete data loss.
+**Topic: RAID 0**
 
 ---
 
-# Issue 1 – RAID Creation Fails
+# 1. Introduction
 
-## Problem
+This document covers common RAID 0 issues that may occur during creation, validation, testing, and cleanup using Linux Software RAID (`mdadm`).
 
-The RAID array cannot be created.
+---
 
-## Possible Causes
+# 2. RAID Device Already Exists
 
-- Existing RAID metadata on member disks
-- Disks already contain partitions
-- One or more disks are in use
-- Incorrect command syntax
+## Symptom
+
+```bash
+mdadm: device /dev/md1 already exists
+```
+
+## Cause
+
+An existing RAID device is already active.
 
 ## Resolution
 
-Check the disks:
-
-```bash
-lsblk
-```
-
-Remove old RAID metadata:
-
-```bash
-sudo wipefs -a /dev/sdb
-sudo wipefs -a /dev/sde
-```
-
-Verify the disks are no longer in use before creating the array again.
-
----
-
-# Issue 2 – RAID Device Not Visible
-
-## Problem
-
-The RAID device (for example, `/dev/md1`) is not created.
-
-## Possible Causes
-
-- RAID creation failed
-- Incorrect device names were specified
-- `mdadm` is not installed
-
-## Resolution
-
-Verify the RAID status:
+Check active RAID arrays:
 
 ```bash
 cat /proc/mdstat
 ```
 
-Display block devices:
+Stop the RAID:
 
 ```bash
-lsblk
-```
-
-Check that `mdadm` is installed:
-
-```bash
-mdadm --version
-```
-
----
-
-# Issue 3 – Filesystem Cannot Be Created
-
-## Problem
-
-Creating a filesystem on the RAID device fails.
-
-## Possible Causes
-
-- RAID array was not created successfully
-- Wrong RAID device specified
-- RAID device is inactive
-
-## Resolution
-
-Verify the RAID array:
-
-```bash
-sudo mdadm --detail /dev/md1
-```
-
-Ensure the RAID state is **clean** before creating the filesystem.
-
----
-
-# Issue 4 – RAID Cannot Be Mounted
-
-## Problem
-
-The RAID array cannot be mounted.
-
-## Possible Causes
-
-- Filesystem not created
-- Incorrect mount point
-- Wrong device name
-
-## Resolution
-
-Create a filesystem if required:
-
-```bash
-sudo mkfs.ext4 /dev/md1
-```
-
-Create a mount point:
-
-```bash
-sudo mkdir -p /mnt/raid0
-```
-
-Mount the RAID array:
-
-```bash
-sudo mount /dev/md1 /mnt/raid0
+sudo mdadm --stop /dev/md1
 ```
 
 Verify:
 
 ```bash
-df -h
-```
-
----
-
-# Issue 5 – Low Performance
-
-## Problem
-
-RAID 0 performance is lower than expected.
-
-## Possible Causes
-
-- Slow member disks
-- Different disk specifications
-- Controller limitations
-- Workload characteristics
-- Improper chunk size
-
-## Resolution
-
-- Use disks with similar specifications.
-- Verify RAID configuration.
-- Check disk utilization:
-
-```bash
-iostat -dx 1
-```
-
-Investigate workload characteristics before modifying the chunk size.
-
----
-
-# Issue 6 – One Member Disk Fails
-
-## Problem
-
-One disk in the RAID 0 array fails.
-
-## Impact
-
-RAID 0 provides **no redundancy**.
-
-Failure of any member disk causes:
-
-- Complete RAID array failure
-- Loss of access to stored data
-- No rebuild capability
-
-## Resolution
-
-- Replace the failed disk.
-- Recreate the RAID array.
-- Restore data from backup.
-
----
-
-# Issue 7 – Incorrect Disk Selected During RAID Creation
-
-## Problem
-
-An incorrect disk was added to the RAID array.
-
-## Impact
-
-Important data on that disk may be overwritten.
-
-## Resolution
-
-Always verify disk names before executing:
-
-```bash
 lsblk
 ```
 
-and
-
-```bash
-sudo fdisk -l
-```
-
-Confirm capacity and model number before creating the RAID array.
-
 ---
 
-# Common Validation Commands
+# 3. Inactive RAID Array (md127)
 
-View block devices:
+## Symptom
 
-```bash
-lsblk
+```text
+md127 : inactive
 ```
 
-View RAID status:
+## Cause
 
-```bash
-cat /proc/mdstat
-```
+Linux automatically assembled RAID metadata from a previous configuration.
+
+## Resolution
 
 View RAID details:
 
 ```bash
-sudo mdadm --detail /dev/md1
+sudo mdadm --detail /dev/md127
 ```
 
-View RAID metadata:
+Stop the inactive array:
+
+```bash
+sudo mdadm --stop /dev/md127
+```
+
+Verify that it has disappeared:
+
+```bash
+lsblk
+```
+
+---
+
+# 4. Existing RAID Metadata
+
+## Symptom
+
+```bash
+mdadm: device or resource busy
+```
+
+or
+
+```bash
+mdadm: cannot create array
+```
+
+## Cause
+
+The disks still contain RAID superblocks from an earlier RAID configuration.
+
+## Resolution
+
+Examine the disks:
+
+```bash
+sudo mdadm --examine /dev/sdb
+sudo mdadm --examine /dev/sde
+```
+
+Remove the metadata:
+
+```bash
+sudo mdadm --zero-superblock /dev/sdb
+sudo mdadm --zero-superblock /dev/sde
+```
+
+Verify:
 
 ```bash
 sudo mdadm --examine /dev/sdb
 ```
 
-Display filesystem usage:
+Expected output:
 
-```bash
-df -h
+```text
+No md superblock detected
 ```
 
-Display disk I/O statistics:
+---
+
+# 5. RAID Not Visible
+
+## Symptom
+
+```bash
+lsblk
+```
+
+does not display the RAID device.
+
+## Cause
+
+The RAID creation failed or the array was not assembled.
+
+## Resolution
+
+Check RAID status:
+
+```bash
+cat /proc/mdstat
+```
+
+Verify RAID details:
+
+```bash
+sudo mdadm --detail /dev/md1
+```
+
+---
+
+# 6. Filesystem Cannot Be Mounted
+
+## Symptom
+
+```bash
+mount: wrong fs type
+```
+
+## Cause
+
+The RAID device has not been formatted.
+
+## Resolution
+
+Create a filesystem:
+
+```bash
+sudo mkfs.ext4 /dev/md1
+```
+
+Mount again:
+
+```bash
+sudo mount /dev/md1 /mnt/raid0
+```
+
+---
+
+# 7. RAID Metadata Verification
+
+## Symptom
+
+Need to verify RAID configuration stored on the disks.
+
+## Resolution
+
+```bash
+sudo mdadm --examine /dev/sdb
+sudo mdadm --examine /dev/sde
+```
+
+Verify:
+
+- RAID Level
+- Array UUID
+- Device UUID
+- Chunk Size
+- Device Role
+- Array State
+
+---
+
+# 8. Performance Verification
+
+## Symptom
+
+Need to confirm striping is functioning correctly.
+
+## Resolution
+
+Generate disk activity:
+
+```bash
+sudo dd if=/dev/zero of=/mnt/raid0/testfile.img bs=1M count=2048 status=progress
+```
+
+Monitor disk I/O:
 
 ```bash
 iostat -dx 1
 ```
 
----
+Expected behavior:
 
-# Best Practices
-
-- Verify the correct disks before creating a RAID array.
-- Remove old RAID metadata before reuse.
-- Use disks with similar capacity and performance.
-- Validate the RAID array after creation.
-- Monitor disk health regularly.
-- Never use RAID 0 for business-critical data unless reliable backups are available.
+- Both member disks receive write requests simultaneously.
+- Aggregate throughput is higher than a single disk.
 
 ---
 
-# Summary
+# 9. RAID Cleanup
 
-RAID 0 is simple to deploy but provides no fault tolerance. Most configuration issues are related to incorrect disk selection, existing RAID metadata, or filesystem configuration. Because RAID 0 cannot recover from a disk failure, careful validation and regular backups are essential when using it in production or test environments.
+## Procedure
+
+Unmount the filesystem:
+
+```bash
+sudo umount /mnt/raid0
+```
+
+Stop the RAID array:
+
+```bash
+sudo mdadm --stop /dev/md1
+```
+
+Remove RAID metadata:
+
+```bash
+sudo mdadm --zero-superblock /dev/sdb
+sudo mdadm --zero-superblock /dev/sde
+```
+
+Verify:
+
+```bash
+lsblk
+```
+
+Both disks should appear as standalone disks.
+
+---
+
+# 10. Best Practices
+
+- Verify disk state before creating RAID.
+- Remove stale RAID metadata before reusing disks.
+- Confirm RAID health using `cat /proc/mdstat`.
+- Validate RAID configuration using `mdadm --detail`.
+- Verify RAID metadata using `mdadm --examine`.
+- Benchmark RAID performance before production use.
+- Always maintain backups because RAID 0 provides no fault tolerance.
+
+---
+
+# Troubleshooting Checklist
+
+| Check | Command |
+|--------|---------|
+| View block devices | `lsblk` |
+| RAID status | `cat /proc/mdstat` |
+| RAID details | `sudo mdadm --detail /dev/md1` |
+| RAID metadata | `sudo mdadm --examine /dev/sdb` |
+| Filesystem usage | `df -h` |
+| Disk I/O | `iostat -dx 1` |
+| Stop RAID | `sudo mdadm --stop /dev/md1` |
+| Remove metadata | `sudo mdadm --zero-superblock /dev/sdb` |
+
+---
+
+# Engineering Takeaways
+
+- Always inspect the environment before creating a RAID array.
+- Remove inactive arrays and stale metadata before reusing disks.
+- Validate RAID health after every major operation.
+- Confirm striping behavior through practical I/O testing.
+- Perform proper cleanup after completing validation to return the system to a known-good state.

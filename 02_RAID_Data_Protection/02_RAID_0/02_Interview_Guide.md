@@ -1,226 +1,145 @@
 # Interview Guide – RAID 0
 
-## Module
+## Project
 
-Project 1 – Enterprise Storage Platform Feature Validation
+**Project 1 – Enterprise Storage Platform Feature Validation**
 
-Module 2 – RAID Data Protection
+**Module 2 – RAID Data Protection**
 
-Topic: RAID 0
+**Topic: RAID 0**
 
 ---
 
 # Basic Interview Questions
 
-## Q1. What is RAID 0?
+## 1. What is RAID 0?
 
-**Answer:**
-
-RAID 0 is a RAID level that uses **block-level striping** to distribute data across two or more physical disks. It is designed to maximize storage performance but does not provide redundancy or fault tolerance.
+RAID 0 is a RAID level that improves storage performance by distributing data across multiple disks using block-level striping. It provides maximum performance and 100% storage utilization but offers no fault tolerance.
 
 ---
 
-## Q2. What technique does RAID 0 use?
+## 2. What is the primary objective of RAID 0?
 
-**Answer:**
-
-RAID 0 uses **block-level striping**.
-
-The RAID controller divides incoming data into fixed-size blocks (chunks) and distributes those blocks across all member disks.
+The primary objective of RAID 0 is to improve storage performance by allowing multiple disks to perform read and write operations simultaneously.
 
 ---
 
-## Q3. Why is RAID 0 faster than a single disk?
+## 3. What is striping?
 
-**Answer:**
-
-RAID 0 improves performance because multiple disks perform read and write operations simultaneously.
-
-Instead of one disk handling all I/O requests, the workload is distributed across all disks in the RAID group.
+Striping is the process of dividing data into blocks and distributing those blocks across multiple disks. This enables parallel I/O operations.
 
 ---
 
-## Q4. What is block-level striping?
+## 4. What is the minimum number of disks required for RAID 0?
 
-**Answer:**
-
-Block-level striping is a technique in which data is divided into fixed-size blocks and written across multiple disks.
-
-Example:
-
-```
-Chunk 1 → Disk 1
-
-Chunk 2 → Disk 2
-
-Chunk 3 → Disk 1
-
-Chunk 4 → Disk 2
-```
-
-This allows multiple disks to participate in the same read or write operation.
+A minimum of **2 disks** is required.
 
 ---
 
-## Q5. What is the minimum number of disks required for RAID 0?
+## 5. Does RAID 0 provide redundancy?
 
-**Answer:**
+No.
 
-A minimum of **two physical disks** is required to create a RAID 0 array.
+RAID 0 provides no mirroring, no parity, and no redundancy.
 
 ---
 
-## Q6. How is RAID 0 capacity calculated?
+## 6. What is the storage efficiency of RAID 0?
 
-**Answer:**
+100%.
 
-RAID 0 uses 100% of the combined capacity of all member disks.
+All available disk capacity is usable.
+
+---
+
+## 7. How is RAID 0 capacity calculated?
 
 Formula:
 
 ```
-Usable Capacity = Sum of all member disk capacities
+Usable Capacity = Sum of all member disks
 ```
 
 Example:
 
 ```
-2 × 1 TB = 2 TB usable capacity
+500 GB + 500 GB = 1000 GB usable
 ```
 
 ---
 
-## Q7. Does RAID 0 provide fault tolerance?
+# Performance Questions
 
-**Answer:**
+## 8. Why is RAID 0 faster than a single disk?
+
+Because data is striped across multiple disks, allowing parallel read and write operations.
+
+---
+
+## 9. Which operations benefit from RAID 0?
+
+- Sequential Reads
+- Sequential Writes
+- Large File Transfers
+- High Throughput Workloads
+
+---
+
+## 10. Does RAID 0 improve write performance?
+
+Yes.
+
+The RAID controller distributes write operations across multiple disks, increasing overall throughput.
+
+---
+
+## 11. Does RAID 0 improve read performance?
+
+Yes.
+
+Multiple disks can read different portions of the requested data simultaneously.
+
+---
+
+# Failure Questions
+
+## 12. What happens if one disk fails in RAID 0?
+
+The entire RAID array fails because part of every file is stored on the failed disk.
+
+---
+
+## 13. Can RAID 0 rebuild after a disk failure?
 
 No.
 
-RAID 0 provides **zero fault tolerance**.
-
-Failure of a single member disk causes the failure of the entire RAID array.
+RAID 0 has no redundant information, so missing data cannot be reconstructed.
 
 ---
 
-## Q8. Can RAID 0 survive one disk failure?
+## 14. Why can't RAID 0 rebuild?
 
-**Answer:**
+Because it stores neither mirror copies nor parity information.
+
+---
+
+## 15. Can applications access data after a RAID 0 disk failure?
 
 No.
 
-Since every file is distributed across multiple disks, losing one member disk makes the striped data incomplete.
-
-The entire RAID array becomes unavailable.
+The logical RAID device becomes unavailable because complete files can no longer be reconstructed.
 
 ---
 
-## Q9. What happens if one disk fails in RAID 0?
+# Engineering Questions
 
-**Answer:**
+## 16. Which Linux utility is commonly used to manage Software RAID?
 
-- The RAID array fails.
-- Applications lose access to the logical device.
-- Data cannot be reconstructed.
-- Recovery generally requires restoring data from backups.
+`mdadm`
 
 ---
 
-## Q10. What are the advantages of RAID 0?
-
-**Answer:**
-
-- Excellent read performance
-- Excellent write performance
-- 100% usable storage capacity
-- Simple implementation
-- No parity calculations
-- No mirroring overhead
-
----
-
-## Q11. What are the disadvantages of RAID 0?
-
-**Answer:**
-
-- No redundancy
-- No fault tolerance
-- No rebuild capability
-- Entire array fails if one disk fails
-
----
-
-## Q12. Where is RAID 0 commonly used?
-
-**Answer:**
-
-RAID 0 is suitable for workloads where performance is more important than data protection.
-
-Examples:
-
-- Video editing
-- Temporary storage
-- Scratch disks
-- Scientific computing
-- Cache storage
-- Test environments
-
-It is generally **not recommended** for business-critical data.
-
----
-
-# Scenario-Based Questions
-
-## Q13. A customer wants maximum storage performance and does not require data protection. Which RAID level would you recommend?
-
-**Answer:**
-
-RAID 0.
-
-Reason:
-
-RAID 0 provides maximum performance through striping and utilizes 100% of the available storage capacity.
-
----
-
-## Q14. A customer wants to store a production database. Would you recommend RAID 0?
-
-**Answer:**
-
-No.
-
-Production databases require fault tolerance and high availability.
-
-Since RAID 0 cannot tolerate disk failures, it is not suitable for storing business-critical databases.
-
----
-
-## Q15. Why doesn't every enterprise use RAID 0 if it is the fastest RAID level?
-
-**Answer:**
-
-Although RAID 0 offers excellent performance, it provides no redundancy.
-
-Enterprises usually prioritize business continuity and data protection in addition to performance.
-
-Therefore, RAID 0 is used only for workloads where data loss is acceptable or recoverable.
-
----
-
-# Practical Interview Questions
-
-## Q16. Which Linux command creates a RAID 0 array?
-
-**Answer:**
-
-```bash
-sudo mdadm --create /dev/md1 --level=0 --raid-devices=2 /dev/sdb /dev/sde
-```
-
----
-
-## Q17. Which command displays RAID status?
-
-**Answer:**
+## 17. Which command displays RAID status?
 
 ```bash
 cat /proc/mdstat
@@ -228,9 +147,7 @@ cat /proc/mdstat
 
 ---
 
-## Q18. Which command displays RAID details?
-
-**Answer:**
+## 18. Which command displays RAID details?
 
 ```bash
 sudo mdadm --detail /dev/md1
@@ -238,9 +155,7 @@ sudo mdadm --detail /dev/md1
 
 ---
 
-## Q19. Which command displays RAID metadata stored on member disks?
-
-**Answer:**
+## 19. Which command displays RAID metadata?
 
 ```bash
 sudo mdadm --examine /dev/sdb
@@ -248,12 +163,86 @@ sudo mdadm --examine /dev/sdb
 
 ---
 
+## 20. What is a RAID superblock?
+
+A RAID superblock is metadata stored on each RAID member disk that contains RAID configuration information such as RAID level, UUID, chunk size, and member role.
+
+---
+
+## 21. What is chunk size?
+
+Chunk size is the amount of data written to one disk before the RAID controller switches to the next disk.
+
+---
+
+## 22. What is the difference between Array UUID and Device UUID?
+
+**Array UUID** identifies the RAID array.
+
+**Device UUID** uniquely identifies an individual member disk.
+
+---
+
+# Scenario-Based Questions
+
+## 23. A customer needs maximum performance for video editing. Which RAID would you recommend?
+
+RAID 0, because performance is the highest priority and the source data is typically backed up elsewhere.
+
+---
+
+## 24. Would you recommend RAID 0 for a banking database?
+
+No.
+
+Banking applications require fault tolerance and data protection. RAID 0 provides neither.
+
+---
+
+## 25. A customer wants both maximum performance and data protection. Is RAID 0 suitable?
+
+No.
+
+RAID 0 provides excellent performance but no redundancy. A RAID level such as RAID 10 would be a better choice.
+
+---
+
+# Practical Questions
+
+## 26. Which steps are involved in validating a RAID 0 array?
+
+- Verify available disks
+- Create RAID array
+- Verify RAID status
+- Create filesystem
+- Mount filesystem
+- Generate test data
+- Observe disk I/O
+- Examine RAID metadata
+- Perform cleanup
+
+---
+
+## 27. How would you verify that striping is working?
+
+Generate disk activity using a large file write and observe both member disks with:
+
+```bash
+iostat -dx 1
+```
+
+Both disks should show simultaneous I/O activity.
+
+---
+
 # Quick Revision
 
-- RAID 0 uses **block-level striping**.
-- Minimum **2 disks** are required.
-- RAID 0 provides **100% usable capacity**.
-- RAID 0 offers **excellent read and write performance**.
-- RAID 0 provides **no redundancy**.
-- Failure of **one disk causes failure of the entire RAID array**.
-- RAID 0 is suitable only for **performance-oriented workloads**.
+- RAID 0 = Striping
+- Minimum 2 disks
+- 100% storage efficiency
+- Highest performance
+- No redundancy
+- No parity
+- No rebuild
+- One disk failure = Entire array failure
+- Managed using `mdadm` in Linux

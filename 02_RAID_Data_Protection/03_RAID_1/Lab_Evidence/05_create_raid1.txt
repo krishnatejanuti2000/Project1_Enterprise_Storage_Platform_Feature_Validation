@@ -1,0 +1,29 @@
+============================================================
+RAID 1 Validation Lab
+Step 05 - Create RAID 1 Array
+============================================================
+
+Command:
+--------
+
+sudo mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdb /dev/sde
+
+Purpose:
+--------
+
+Create a RAID 1 (Mirroring) array using two physical disks.
+
+Observation:
+------------
+
+- RAID 1 array (/dev/md1) was successfully created.
+- Metadata version 1.2 was used.
+- An internal write-intent bitmap was enabled.
+- Initial synchronization (resync) started automatically.
+
+Result:
+-------
+
+PASS
+
+RAID 1 array created successfully.

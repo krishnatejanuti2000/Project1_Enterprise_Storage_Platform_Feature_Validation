@@ -1,0 +1,30 @@
+============================================================
+RAID 1 Validation Lab
+Step 01 - Verify Available Block Devices
+============================================================
+
+Command:
+--------
+
+lsblk
+
+Purpose:
+--------
+
+Verify that the required physical disks are available before creating the RAID 1 array.
+
+Observation:
+------------
+
+- /dev/sdb is available.
+- /dev/sde is available.
+- Existing RAID 0 array (md0) is present on /dev/sdc and /dev/sdd.
+- No active RAID 1 array exists.
+- Both selected disks are ready for RAID 1 creation after cleanup.
+
+Result:
+-------
+
+PASS
+
+The required disks were successfully identified for RAID 1 validation.

@@ -1,0 +1,32 @@
+============================================================
+RAID 1 Validation Lab
+Step 16 - Verify RAID Recovery
+============================================================
+
+Commands:
+---------
+
+cat /proc/mdstat
+
+sudo mdadm --detail /dev/md1
+
+Purpose:
+--------
+
+Monitor the RAID recovery process and verify that the array returns to a healthy state.
+
+Observation:
+------------
+
+- Recovery progressed successfully.
+- Both member disks became active.
+- RAID health returned to [UU].
+- Recovery completed without errors.
+- Full redundancy was restored.
+
+Result:
+-------
+
+PASS
+
+RAID recovery completed successfully.

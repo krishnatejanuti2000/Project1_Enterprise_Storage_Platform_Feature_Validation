@@ -1,0 +1,29 @@
+============================================================
+RAID 1 Validation Lab
+Step 06 - Verify RAID Status
+============================================================
+
+Command:
+--------
+
+cat /proc/mdstat
+
+Purpose:
+--------
+
+Verify that the RAID 1 array is active and monitor the initial synchronization process.
+
+Observation:
+------------
+
+- RAID 1 array (md1) is active.
+- Both member disks are present.
+- Health status is [UU].
+- Initial resynchronization is in progress.
+
+Result:
+-------
+
+PASS
+
+RAID 1 array is operational and synchronization started successfully.

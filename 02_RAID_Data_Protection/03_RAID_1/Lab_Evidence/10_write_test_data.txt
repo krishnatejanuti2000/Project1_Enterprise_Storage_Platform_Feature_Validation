@@ -1,0 +1,30 @@
+============================================================
+RAID 1 Validation Lab
+Step 10 - Generate Test Data
+============================================================
+
+Commands:
+---------
+
+sudo dd if=/dev/zero of=/mnt/raid1/testfile.img bs=1M count=2048 status=progress
+
+ls -lh /mnt/raid1
+
+Purpose:
+--------
+
+Generate test data on the RAID 1 array to validate write operations and prepare for fault-tolerance testing.
+
+Observation:
+------------
+
+- A 2 GB test file was successfully created.
+- The file is visible in the mounted filesystem.
+- Data was written successfully to the RAID array.
+
+Result:
+-------
+
+PASS
+
+Test data generated successfully.

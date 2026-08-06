@@ -1,0 +1,28 @@
+============================================================
+RAID 1 Validation Lab
+Step 02 - Verify Existing RAID Configuration
+============================================================
+
+Command:
+--------
+
+cat /proc/mdstat
+
+Purpose:
+--------
+
+Verify existing RAID arrays before creating a new RAID 1 array.
+
+Observation:
+------------
+
+- RAID 0 array (md0) is active.
+- An inactive RAID device (md127) exists.
+- The inactive array must be cleaned before proceeding.
+
+Result:
+-------
+
+PASS
+
+Existing RAID configuration successfully identified.

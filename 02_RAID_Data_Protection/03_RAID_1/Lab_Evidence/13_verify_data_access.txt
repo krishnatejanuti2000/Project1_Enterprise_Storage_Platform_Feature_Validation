@@ -1,0 +1,31 @@
+============================================================
+RAID 1 Validation Lab
+Step 13 - Verify Data Accessibility During Disk Failure
+============================================================
+
+Commands:
+---------
+
+ls -lh /mnt/raid1
+
+head -c 64 /mnt/raid1/testfile.img | xxd
+
+Purpose:
+--------
+
+Verify that application data remains accessible after one RAID member has failed.
+
+Observation:
+------------
+
+- The test file remained present in the filesystem.
+- The file was successfully read.
+- Binary output confirmed that data was accessible through the surviving mirror member.
+- RAID 1 continued serving application I/O despite operating in degraded mode.
+
+Result:
+-------
+
+PASS
+
+Data accessibility successfully verified during degraded mode.

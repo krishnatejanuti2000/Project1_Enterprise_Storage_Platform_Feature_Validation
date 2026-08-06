@@ -1,0 +1,33 @@
+============================================================
+RAID 1 Validation Lab
+Step 11 - Simulate Disk Failure
+============================================================
+
+Commands:
+---------
+
+sudo mdadm --manage /dev/md1 --fail /dev/sde
+
+cat /proc/mdstat
+
+sudo mdadm --detail /dev/md1
+
+Purpose:
+--------
+
+Simulate the failure of one RAID member to validate RAID 1 fault tolerance.
+
+Observation:
+------------
+
+- /dev/sde was successfully marked as failed.
+- RAID entered degraded mode.
+- Health indicator changed from [UU] to [U_].
+- One member disk continued serving application I/O.
+
+Result:
+-------
+
+PASS
+
+Disk failure simulation completed successfully.
