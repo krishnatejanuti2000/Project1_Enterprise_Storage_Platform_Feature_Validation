@@ -1,0 +1,111 @@
+============================================================
+RAID 5 LAB — MOUNT VERIFICATION
+============================================================
+
+Purpose:
+Verify that the RAID 5 filesystem is correctly recognized as
+ext4 and mounted at /mnt/raid5.
+
+Command:
+
+lsblk -f
+
+
+Output:
+
+NAME FSTYPE FSVER LABEL     UUID                                   FSAVAIL FSUSE% MOUNTPOINTS
+loop0
+     squash 4.0                                                          0   100% /snap/firefox/8633
+loop1
+     squash 4.0                                                          0   100% /snap/core24/1643
+loop2
+     squash 4.0                                                          0   100% /snap/bare/5
+loop3
+     squash 4.0                                                          0   100% /snap/firefox/8595
+loop4
+     squash 4.0                                                          0   100% /snap/firmware-updater/226
+loop5     squash 4.0                                                          0   100% /snap/desktop-security-center/151
+loop6     squash 4.0                                                          0   100% /snap/gnome-46-2404/164
+loop7     squash 4.0                                                          0   100% /snap/gtk-common-themes/1535
+loop8     squash 4.0                                                          0   100% /snap/mesa-2404/1165
+loop9     squash 4.0                                                          0   100% /snap/mesa-2404/1839
+loop10    squash 4.0                                                          0   100% /snap/prompting-client/222
+loop11    squash 4.0                                                          0   100% /snap/snapd/27406
+loop12    squash 4.0                                                          0   100% /snap/snapd/27591
+loop13    squash 4.0                                                          0   100% /snap/snapd-desktop-integration/387
+loop14    squash 4.0                                                          0   100% /snap/snapd-desktop-integration/391
+loop15    squash 4.0                                                          0   100% /snap/thunderbird/1170
+loop16    squash 4.0                                                          0   100% /snap/thunderbird/1201
+
+sda
+
+├─sda1
+├─sda2
+│    ext4   1.0             e4f599ff-6c2b-443f-86e3-a2c6f55d574a      1.5G    13% /boot
+└─sda3
+  │  LVM2_member LVM2       oBVNEd-c36Y-9T9v-LzlL-TNjM-7ZND-5Yidww
+  └─ubuntu--vg-ubuntu--lv
+     ext4   1.0             03b33678-82f1-4d67-bf4d-63db38f6629b     54.2G    39% /
+
+sdb  linux_raid_member 1.2   winteck:0 90282536-6198-ca64-d667-66e79f1a273d
+└─md0
+     ext4   1.0             940e87ff-8c11-42a4-b949-45af37ba4657    468.6G     0% /mnt/raid5
+
+sdc  linux_raid_member 1.2   winteck:0 90282536-6198-ca64-d667-66e79f1a273d
+└─md0
+     ext4   1.0             940e87ff-8c11-42a4-b949-45af37ba4657    468.6G     0% /mnt/raid5
+
+sdd  linux_raid_member 1.2   winteck:0 90282536-6198-ca64-d667-66e79f1a273d
+└─md0
+     ext4   1.0             940e87ff-8c11-42a4-b949-45af37ba4657    468.6G     0% /mnt/raid5
+
+sde  linux_raid_member 1.2   winteck:0 90282536-6198-ca64-d667-66e79f1a273d
+└─md0
+     ext4   1.0             940e87ff-8c11-42a4-b949-45af37ba4657    468.6G     0% /mnt/raid5
+
+sr0
+
+
+============================================================
+VERIFICATION
+============================================================
+
+RAID Device:
+    /dev/md0
+
+Filesystem:
+    ext4
+
+Filesystem UUID:
+    940e87ff-8c11-42a4-b949-45af37ba4657
+
+Available Space:
+    468.6G
+
+Filesystem Usage:
+    0%
+
+Mount Point:
+    /mnt/raid5
+
+RAID Members:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+
+============================================================
+RESULT
+============================================================
+
+The RAID 5 device /dev/md0 was correctly recognized as an
+ext4 filesystem and successfully mounted at /mnt/raid5.
+
+All four RAID member devices were associated with the same
+RAID array and filesystem.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

@@ -1,0 +1,102 @@
+============================================================
+RAID 5 LAB — DEGRADED RAID STATE
+============================================================
+
+Purpose:
+Verify that RAID 5 correctly enters degraded mode after one
+member is intentionally failed.
+
+Command:
+
+cat /proc/mdstat
+
+
+============================================================
+OUTPUT
+============================================================
+
+Personalities : [raid0] [raid1] [raid4] [raid5] [raid6] [raid10] [linear]
+
+md0 : active raid5 sde[4] sdd[2] sdc[1](F) sdb[0]
+      527081472 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [U_UU]
+      bitmap: 1/2 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+
+============================================================
+VERIFICATION
+============================================================
+
+RAID Level:
+
+    RAID 5
+
+
+Configured RAID Devices:
+
+    4
+
+
+Currently Active/Usable Members:
+
+    3
+
+
+Failed Member:
+
+    /dev/sdc
+
+
+Healthy Members:
+
+    /dev/sdb
+    /dev/sdd
+    /dev/sde
+
+
+RAID State:
+
+    Degraded
+
+
+RAID Status:
+
+    [4/3]
+
+
+Member Bitmap:
+
+    [U_UU]
+
+
+============================================================
+MEMBER INTERPRETATION
+============================================================
+
+/dev/sdb → U → healthy
+/dev/sdc → F → failed
+/dev/sdd → U → healthy
+/dev/sde → U → healthy
+
+
+The "(F)" marker identifies /dev/sdc as the failed member.
+
+The [U_UU] state indicates that one RAID member position is
+unavailable while the remaining three members are operational.
+
+
+============================================================
+RESULT
+============================================================
+
+RAID 5 successfully entered degraded mode after the failure
+of one member.
+
+The array remained operational with three working members,
+demonstrating RAID 5 single-member failure tolerance.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

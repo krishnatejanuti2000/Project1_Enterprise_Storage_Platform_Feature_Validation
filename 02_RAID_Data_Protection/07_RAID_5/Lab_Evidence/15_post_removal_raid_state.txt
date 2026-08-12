@@ -1,0 +1,115 @@
+============================================================
+RAID 5 LAB — RAID STATE AFTER FAILED MEMBER REMOVAL
+============================================================
+
+Purpose:
+Verify the RAID 5 state after the failed member /dev/sdc was
+removed and before the replacement member was re-added.
+
+Command:
+
+cat /proc/mdstat
+
+
+============================================================
+OUTPUT
+============================================================
+
+Personalities : [raid0] [raid1] [raid4] [raid5] [raid6] [raid10] [linear]
+
+md0 : active raid5 sde[4] sdd[2] sdb[0]
+      527081472 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [U_UU]
+      bitmap: 1/2 pages [4KB], 65536KB chunk
+
+unused devices: <none>
+
+
+============================================================
+VERIFICATION
+============================================================
+
+RAID Level:
+
+    RAID 5
+
+
+Configured RAID Devices:
+
+    4
+
+
+Currently Active Members:
+
+    3
+
+
+Missing/Removed Member:
+
+    /dev/sdc
+
+
+Active Members:
+
+    /dev/sdb
+    /dev/sdd
+    /dev/sde
+
+
+RAID State:
+
+    Degraded
+
+
+Array Status:
+
+    [4/3] [U_UU]
+
+
+============================================================
+MEMBER INTERPRETATION
+============================================================
+
+/dev/sdb → active
+/dev/sdc → removed
+/dev/sdd → active
+/dev/sde → active
+
+
+The RAID configuration still expects four members, but only
+three members are currently active.
+
+
+============================================================
+OBSERVATION
+============================================================
+
+The failed member was successfully removed from the array.
+
+The RAID 5 array remained operational but degraded.
+
+No replacement member had been added at this point.
+
+
+============================================================
+NEXT STEP
+============================================================
+
+The removed device /dev/sdc was inspected before being reused
+as the replacement member.
+
+The inspection command was:
+
+    sudo mdadm --examine /dev/sdc
+
+
+============================================================
+RESULT
+============================================================
+
+The RAID 5 array was successfully verified in its
+post-removal degraded state with three active members.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

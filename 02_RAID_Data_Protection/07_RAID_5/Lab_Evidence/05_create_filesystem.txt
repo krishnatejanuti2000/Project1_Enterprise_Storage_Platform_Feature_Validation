@@ -1,0 +1,73 @@
+============================================================
+RAID 5 LAB — FILESYSTEM CREATION
+============================================================
+
+Purpose:
+Create an ext4 filesystem on the RAID 5 logical device
+/dev/md0.
+
+Command:
+
+sudo mkfs.ext4 /dev/md0
+
+
+Output:
+
+mke2fs 1.47.2 (1-Jan-2025)
+Creating filesystem with 131770368 4k blocks and 32948224 inodes
+Filesystem UUID: 940e87ff-8c11-42a4-b949-45af37ba4657
+Superblock backups stored on blocks:
+    32768, 98304, 163840, 229376, 294912, 819200, 884736,
+    1605632, 2654208, 4096000, 7962624, 11239424, 20480000,
+    23887872, 71663616, 78675968, 102400000
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (262144 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+
+============================================================
+VERIFICATION
+============================================================
+
+Filesystem:
+    ext4
+
+RAID Logical Device:
+    /dev/md0
+
+Filesystem UUID:
+    940e87ff-8c11-42a4-b949-45af37ba4657
+
+Filesystem Creation:
+    Successful
+
+Journal:
+    Created successfully
+
+Superblocks:
+    Written successfully
+
+
+============================================================
+RESULT
+============================================================
+
+The ext4 filesystem was successfully created on the RAID 5
+logical device /dev/md0.
+
+The RAID layer remains underneath the filesystem layer:
+
+    Physical Disks
+          ↓
+       RAID 5
+          ↓
+       /dev/md0
+          ↓
+        ext4
+
+
+============================================================
+END OF EVIDENCE
+============================================================

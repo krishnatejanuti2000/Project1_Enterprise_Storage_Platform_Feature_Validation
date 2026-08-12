@@ -1,0 +1,117 @@
+============================================================
+RAID 5 LAB — PRE-FAILURE BASELINE
+============================================================
+
+Purpose:
+Capture the final healthy RAID 5 state immediately before
+intentionally failing one RAID member.
+
+Command:
+
+sudo mdadm --detail /dev/md0
+
+
+Output:
+
+/dev/md0:
+Version : 1.2
+Creation Time : Wed Aug 12 04:39:15 2026
+Raid Level : raid5
+Array Size : 527081472 (502.66 GiB 539.73 GB)
+Used Dev Size : 175693824 (167.55 GiB 179.91 GB)
+Raid Devices : 4
+Total Devices : 4
+Persistence : Superblock is persistent
+
+Intent Bitmap : Internal
+
+Update Time : Wed Aug 12 05:06:35 2026
+State : clean
+Active Devices : 4
+Working Devices : 4
+Failed Devices : 0
+Spare Devices : 0
+
+Layout : left-symmetric
+Chunk Size : 512K
+
+Consistency Policy : bitmap
+
+Name : winteck:0  (local to host winteck)
+UUID : 90282536:6198ca64:d66766e7:9f1a273d
+Events : 256
+
+
+Number   Major   Minor   RaidDevice State
+   0       8       16        0      active sync   /dev/sdb
+   1       8       32        1      active sync   /dev/sdc
+   2       8       48        2      active sync   /dev/sdd
+   4       8       64        3      active sync   /dev/sde
+
+
+============================================================
+BASELINE VERIFICATION
+============================================================
+
+RAID Level:
+    RAID 5
+
+RAID Devices:
+    4
+
+Active Devices:
+    4
+
+Working Devices:
+    4
+
+Failed Devices:
+    0
+
+Spare Devices:
+    0
+
+State:
+    clean
+
+
+============================================================
+MEMBER BASELINE
+============================================================
+
+/dev/sdb → active sync
+/dev/sdc → active sync
+/dev/sdd → active sync
+/dev/sde → active sync
+
+
+============================================================
+TEST DATA STATUS
+============================================================
+
+Known test file:
+
+    /mnt/raid5/testdata/testfile.txt
+
+Known contents:
+
+    RAID5-TEST-DATA-001
+
+The test data was successfully written and read before the
+failure scenario.
+
+
+============================================================
+RESULT
+============================================================
+
+The RAID 5 array was confirmed healthy immediately before
+the intentional member-failure test.
+
+This baseline provides the reference state for comparison
+with the subsequent degraded RAID state.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

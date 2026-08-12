@@ -1,0 +1,82 @@
+============================================================
+RAID 5 LAB — RE-ADD REPLACEMENT MEMBER
+============================================================
+
+Purpose:
+Re-add /dev/sdc to the degraded RAID 5 array after the failed
+member was removed and its RAID metadata was inspected.
+
+RAID Array:
+
+    /dev/md0
+
+Replacement Member:
+
+    /dev/sdc
+
+
+============================================================
+COMMAND
+============================================================
+
+sudo mdadm --manage /dev/md0 --add /dev/sdc
+
+
+============================================================
+OUTPUT
+============================================================
+
+mdadm: re-added /dev/sdc
+
+
+============================================================
+VERIFICATION
+============================================================
+
+The command successfully re-added /dev/sdc to the RAID 5
+array.
+
+Immediately after re-addition, the RAID status was checked
+using:
+
+    cat /proc/mdstat
+
+
+The subsequent status showed:
+
+    md0 : active raid5 sdc[1] sde[4] sdd[2] sdb[0]
+          527081472 blocks super 1.2 level 5, 512k chunk,
+          algorithm 2 [4/4] [UUUU]
+
+
+============================================================
+OBSERVATION
+============================================================
+
+/dev/sdc was successfully accepted back into the RAID 5
+array.
+
+The array returned to a four-member configuration.
+
+The following RAID member positions were present:
+
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+
+============================================================
+RESULT
+============================================================
+
+The replacement member was successfully re-added to the
+RAID 5 array.
+
+The subsequent RAID status showed all four members present
+and healthy.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

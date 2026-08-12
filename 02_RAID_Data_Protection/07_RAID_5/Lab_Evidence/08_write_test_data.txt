@@ -1,0 +1,88 @@
+============================================================
+RAID 5 LAB — TEST DATA WRITE AND READ VERIFICATION
+============================================================
+
+Purpose:
+Create test data on the mounted RAID 5 filesystem and verify
+that the data can be read successfully.
+
+============================================================
+STEP 1 — CREATE TEST DIRECTORY
+============================================================
+
+Command:
+
+sudo mkdir -p /mnt/raid5/testdata
+
+Output:
+
+No output.
+
+
+============================================================
+STEP 2 — WRITE TEST DATA
+============================================================
+
+Command:
+
+echo "RAID5-TEST-DATA-001" | sudo tee /mnt/raid5/testdata/testfile.txt
+
+Output:
+
+RAID5-TEST-DATA-001
+
+
+============================================================
+STEP 3 — READ TEST DATA
+============================================================
+
+Command:
+
+cat /mnt/raid5/testdata/testfile.txt
+
+Output:
+
+RAID5-TEST-DATA-001
+
+
+============================================================
+VERIFICATION
+============================================================
+
+Test File:
+
+    /mnt/raid5/testdata/testfile.txt
+
+Expected Data:
+
+    RAID5-TEST-DATA-001
+
+Read-Back Data:
+
+    RAID5-TEST-DATA-001
+
+Result:
+
+    PASS
+
+
+============================================================
+PURPOSE OF TEST DATA
+============================================================
+
+The test file provides a known data object that can be
+verified before and after the RAID 5 member-failure and
+rebuild scenario.
+
+The same data will be checked after:
+
+    1. RAID member failure
+    2. Degraded operation
+    3. Failed-member removal
+    4. Replacement-member re-addition
+    5. RAID rebuild
+
+
+============================================================
+END OF EVIDENCE
+============================================================

@@ -1,0 +1,101 @@
+============================================================
+RAID 5 LAB — INITIAL RAID SYNCHRONIZATION
+============================================================
+
+Purpose:
+Verify the initial RAID 5 synchronization/recovery process
+after creating the array.
+
+Command:
+
+cat /proc/mdstat
+
+
+Initial Output:
+
+Personalities : [raid0] [raid1] [raid4] [raid5] [raid6] [raid10] [linear]
+
+md0 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]
+      527081472 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/3] [UUU_]
+      [>....................]  recovery =  3.6% (6443820/175693824) finish=20.6min speed=136693K/sec
+      bitmap: 0/2 pages [0KB], 65536KB chunk
+
+unused devices: <none>
+
+
+============================================================
+OBSERVATION
+============================================================
+
+RAID Level:
+    RAID 5
+
+RAID Members:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+Initial State:
+    [4/3] [UUU_]
+
+Recovery:
+    3.6% at the captured point
+
+Estimated Remaining Time:
+    Approximately 20.6 minutes at the captured point
+
+Recovery Speed:
+    Approximately 136693 KB/sec
+
+Chunk Size:
+    512K
+
+Metadata:
+    Version 1.2
+
+Layout:
+    left-symmetric
+
+Write-Intent Bitmap:
+    Internal bitmap enabled
+
+
+============================================================
+FINAL SYNCHRONIZATION VERIFICATION
+============================================================
+
+After synchronization completed, the following command was
+used:
+
+cat /proc/mdstat
+
+
+Final Output:
+
+Personalities : [raid0] [raid1] [raid4] [raid5] [raid6] [raid10] [linear]
+
+md0 : active raid5 sde[4] sdd[2] sdc[1] sdb[0]
+      527081472 blocks super 1.2 level 5, 512k chunk, algorithm 2 [4/4] [UUUU]
+      bitmap: 0/2 pages [0KB], 65536KB chunk
+
+unused devices: <none>
+
+
+============================================================
+FINAL OBSERVATION
+============================================================
+
+[4/4] indicates that all four configured RAID members were
+active.
+
+[UUUU] indicates that all four RAID member positions were
+healthy.
+
+No recovery/resync progress line was present in the final
+output, confirming that the initial synchronization had
+completed.
+
+============================================================
+END OF EVIDENCE
+============================================================

@@ -1,0 +1,74 @@
+============================================================
+RAID 5 LAB — MOUNT RAID 5 FILESYSTEM
+============================================================
+
+Purpose:
+Mount the ext4 filesystem created on /dev/md0 at the
+dedicated RAID 5 mount point.
+
+Command:
+
+sudo mkdir -p /mnt/raid5
+
+Output:
+
+No output.
+
+
+Command:
+
+sudo mount /dev/md0 /mnt/raid5
+
+Output:
+
+No output.
+
+
+============================================================
+VERIFICATION
+============================================================
+
+Mount Point:
+
+    /mnt/raid5
+
+RAID Device:
+
+    /dev/md0
+
+Filesystem:
+
+    ext4
+
+
+============================================================
+RESULT
+============================================================
+
+The mount-point directory was created successfully.
+
+The ext4 filesystem on /dev/md0 was successfully mounted at:
+
+    /mnt/raid5
+
+A successful mount command produced no error output.
+
+
+============================================================
+STORAGE STACK
+============================================================
+
+Physical Disks
+      ↓
+RAID 5
+      ↓
+/dev/md0
+      ↓
+ext4
+      ↓
+/mnt/raid5
+
+
+============================================================
+END OF EVIDENCE
+============================================================

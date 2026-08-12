@@ -1,0 +1,85 @@
+============================================================
+RAID 5 LAB — SIMULATE MEMBER FAILURE
+============================================================
+
+Purpose:
+Intentionally mark /dev/sdc as a failed RAID 5 member in
+order to validate degraded-mode operation and RAID 5
+single-member fault tolerance.
+
+Target RAID Array:
+
+    /dev/md0
+
+Target Member:
+
+    /dev/sdc
+
+
+============================================================
+COMMAND
+============================================================
+
+sudo mdadm --manage /dev/md0 --fail /dev/sdc
+
+
+============================================================
+COMMAND OUTPUT
+============================================================
+
+No output was produced by the command.
+
+The command completed successfully.
+
+
+============================================================
+FAILURE SIMULATION
+============================================================
+
+The RAID management command instructed mdadm to mark:
+
+    /dev/sdc
+
+as failed within:
+
+    /dev/md0
+
+
+============================================================
+NEXT VALIDATION
+============================================================
+
+The RAID state was subsequently checked using:
+
+    cat /proc/mdstat
+
+The detailed degraded state was also checked using:
+
+    sudo mdadm --detail /dev/md0
+
+
+============================================================
+RESULT
+============================================================
+
+The intentional RAID member failure operation completed
+successfully.
+
+The subsequent RAID status verification confirmed that
+/dev/sdc entered the failed state and the RAID 5 array
+continued operating in degraded mode.
+
+
+============================================================
+IMPORTANT NOTE
+============================================================
+
+This was a software-level failure simulation performed with
+mdadm.
+
+The physical disk was not physically damaged.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

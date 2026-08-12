@@ -1,0 +1,80 @@
+============================================================
+RAID 5 LAB — DATA ACCESS IN DEGRADED MODE
+============================================================
+
+Purpose:
+Verify that previously written data remains accessible while
+the RAID 5 array is operating with one failed member.
+
+RAID State During Test:
+
+    Degraded
+
+Failed Member:
+
+    /dev/sdc
+
+
+============================================================
+COMMAND
+============================================================
+
+cat /mnt/raid5/testdata/testfile.txt
+
+
+============================================================
+OUTPUT
+============================================================
+
+RAID5-TEST-DATA-001
+
+
+============================================================
+VERIFICATION
+============================================================
+
+Test File:
+
+    /mnt/raid5/testdata/testfile.txt
+
+Expected Data:
+
+    RAID5-TEST-DATA-001
+
+Read-Back Data:
+
+    RAID5-TEST-DATA-001
+
+Result:
+
+    PASS
+
+
+============================================================
+OBSERVATION
+============================================================
+
+The RAID 5 array remained operational after /dev/sdc was
+failed.
+
+The previously written test data remained accessible while
+the array was degraded.
+
+This demonstrates RAID 5 single-member failure tolerance at
+the data-access level.
+
+
+============================================================
+IMPORTANT
+============================================================
+
+The test confirms successful data access during degraded
+operation.
+
+It does not by itself prove that every block on the array was
+read or that complete filesystem integrity was tested.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

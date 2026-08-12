@@ -1,0 +1,63 @@
+============================================================
+RAID 5 LAB — INITIAL DISK INVENTORY
+============================================================
+
+Purpose:
+Initial verification of available block devices before creating
+the RAID 5 array.
+
+Command:
+lsblk
+
+Output:
+
+NAME                      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0                       7:0    0 252.4M  1 loop /snap/firefox/8633
+loop1                       7:1    0  66.8M  1 loop /snap/core24/1643
+loop2                       7:2    0     4K  1 loop /snap/bare/5
+loop3                       7:3    0 252.8M  1 loop /snap/firefox/8595
+loop4                       7:4    0  16.5M  1 loop /snap/firmware-updater/226
+loop5                       7:5    0    20M  1 loop /snap/desktop-security-center/151
+loop6                       7:6    0 614.5M  1 loop /snap/gnome-46-2404/164
+loop7                       7:7    0  91.7M  1 loop /snap/gtk-common-themes/1535
+loop8                       7:8    0   395M  1 loop /snap/mesa-2404/1165
+loop9                       7:9    0   402M  1 loop /snap/mesa-2404/1839
+loop10                      7:10   0  18.8M  1 loop /snap/prompting-client/222
+loop11                      7:11   0  50.1M  1 loop /snap/snapd/27406
+loop12                      7:12   0  50.1M  1 loop /snap/snapd/27591
+loop13                      7:13   0  828K  1 loop /snap/snapd-desktop-integration/387
+loop14                      7:14   0  828K  1 loop /snap/snapd-desktop-integration/391
+loop15                      7:15   0 210.8M  1 loop /snap/thunderbird/1170
+loop16                      7:16   0 219.9M  1 loop /snap/thunderbird/1201
+sda                         8:0    0 465.8G  0 disk
+├─sda1                      8:1    0     1M  0 part
+├─sda2                      8:2    0     2G  0 part /boot
+└─sda3                      8:3    0 463.8G  0 part
+  └─ubuntu--vg-ubuntu--lv 252:0    0   100G  0 lvm  /
+sdb                         8:16   0 279.4G  0 disk
+sdc                         8:32   0 167.7G  0 disk
+sdd                         8:48   0 238.5G  0 disk
+sde                         8:64   0 279.4G  0 disk
+sr0                        11:0    1  1024M  1 rom
+
+============================================================
+RAID LAB DEVICE SELECTION
+============================================================
+
+System disk:
+    /dev/sda
+    Status: NOT USED for RAID lab
+
+RAID member devices:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+Reason:
+The RAID lab used /dev/sdb through /dev/sde while leaving
+the system disk /dev/sda untouched.
+
+============================================================
+END OF EVIDENCE
+============================================================

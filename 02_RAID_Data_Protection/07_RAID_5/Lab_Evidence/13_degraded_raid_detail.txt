@@ -1,0 +1,136 @@
+============================================================
+RAID 5 LAB — DETAILED DEGRADED RAID STATE
+============================================================
+
+Purpose:
+Capture the detailed mdadm state after /dev/sdc was failed
+and before the failed member was removed.
+
+Command:
+
+sudo mdadm --detail /dev/md0
+
+
+============================================================
+OUTPUT
+============================================================
+
+/dev/md0:
+Version : 1.2
+Creation Time : Wed Aug 12 04:39:15 2026
+Raid Level : raid5
+Array Size : 527081472 (502.66 GiB 539.73 GB)
+Used Dev Size : 175693824 (167.55 GiB 179.91 GB)
+Raid Devices : 4
+Total Devices : 4
+Persistence : Superblock is persistent
+
+Intent Bitmap : Internal
+
+Update Time : Wed Aug 12 05:10:22 2026
+State : active, degraded
+Active Devices : 3
+Working Devices : 3
+Failed Devices : 1
+Spare Devices : 0
+
+Layout : left-symmetric
+Chunk Size : 512K
+
+Consistency Policy : bitmap
+
+Name : winteck:0  (local to host winteck)
+UUID : 90282536:6198ca64:d66766e7:9f1a273d
+Events : 869
+
+
+Number   Major   Minor   RaidDevice State
+   0       8       16        0      active sync   /dev/sdb
+   -       0        0        1      removed
+   2       8       48        2      active sync   /dev/sdd
+   4       8       64        3      active sync   /dev/sde
+
+   1       8       32        -      faulty   /dev/sdc
+
+
+============================================================
+VERIFICATION
+============================================================
+
+RAID Level:
+
+    RAID 5
+
+
+Configured RAID Devices:
+
+    4
+
+
+Active Devices:
+
+    3
+
+
+Working Devices:
+
+    3
+
+
+Failed Devices:
+
+    1
+
+
+Spare Devices:
+
+    0
+
+
+State:
+
+    active, degraded
+
+
+============================================================
+MEMBER STATE
+============================================================
+
+/dev/sdb → active sync → RAID device 0
+
+/dev/sdc → faulty → failed member
+
+/dev/sdd → active sync → RAID device 2
+
+/dev/sde → active sync → RAID device 3
+
+
+RAID device slot 1 is shown as:
+
+    removed
+
+
+============================================================
+OBSERVATION
+============================================================
+
+The detailed mdadm output confirms that the RAID 5 array is
+operating in degraded mode with one failed member.
+
+Three devices remain active and working, while /dev/sdc is
+marked faulty.
+
+The array has no spare device at this stage.
+
+
+============================================================
+RESULT
+============================================================
+
+The detailed RAID state confirms successful transition to
+degraded operation after the intentional failure of /dev/sdc.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

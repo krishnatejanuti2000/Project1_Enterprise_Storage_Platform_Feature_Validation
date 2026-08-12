@@ -1,0 +1,101 @@
+============================================================
+RAID 5 LAB — POST-REBUILD DATA INTEGRITY
+============================================================
+
+Purpose:
+Verify that the test data written before the RAID 5 member
+failure remains accessible after the complete failure,
+removal, re-addition, and recovery process.
+
+Test File:
+
+    /mnt/raid5/testdata/testfile.txt
+
+
+============================================================
+COMMAND
+============================================================
+
+cat /mnt/raid5/testdata/testfile.txt
+
+
+============================================================
+OUTPUT
+============================================================
+
+RAID5-TEST-DATA-001
+
+
+============================================================
+VERIFICATION
+============================================================
+
+Original Test Data:
+
+    RAID5-TEST-DATA-001
+
+
+Post-Rebuild Read Data:
+
+    RAID5-TEST-DATA-001
+
+
+Result:
+
+    PASS
+
+
+============================================================
+FAILURE / RECOVERY SEQUENCE
+============================================================
+
+The test data was originally written while the RAID 5 array
+was healthy.
+
+The following operations were then performed:
+
+    1. /dev/sdc was intentionally failed.
+    2. RAID 5 entered degraded mode.
+    3. Test data remained accessible.
+    4. /dev/sdc was removed from the array.
+    5. /dev/sdc was inspected for RAID metadata.
+    6. /dev/sdc was re-added to the RAID array.
+    7. RAID returned to a four-member healthy state.
+    8. The original test data was read again successfully.
+
+
+============================================================
+FINAL DATA-INTEGRITY RESULT
+============================================================
+
+The test file remained readable after the RAID 5 member
+failure and subsequent recovery process.
+
+The read-back contents exactly matched the original test data:
+
+    RAID5-TEST-DATA-001
+
+
+============================================================
+LAB CONCLUSION
+============================================================
+
+The RAID 5 lab successfully demonstrated:
+
+    • Four-member RAID 5 creation
+    • Initial RAID synchronization
+    • ext4 filesystem creation
+    • RAID filesystem mounting
+    • Test data creation
+    • Single-member failure
+    • Degraded RAID operation
+    • Data accessibility during degradation
+    • Failed-member removal
+    • Replacement-member re-addition
+    • Return to a four-member healthy state
+    • Post-recovery data accessibility
+
+
+============================================================
+END OF EVIDENCE
+============================================================

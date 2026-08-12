@@ -1,0 +1,77 @@
+============================================================
+RAID 5 LAB — REMOVE FAILED MEMBER
+============================================================
+
+Purpose:
+Remove the failed RAID member /dev/sdc from the degraded
+RAID 5 array after verifying its failed state.
+
+RAID Array:
+
+    /dev/md0
+
+Failed Member:
+
+    /dev/sdc
+
+
+============================================================
+COMMAND
+============================================================
+
+sudo mdadm --manage /dev/md0 --remove /dev/sdc
+
+
+============================================================
+OUTPUT
+============================================================
+
+mdadm: hot removed /dev/sdc from /dev/md0
+
+
+============================================================
+VERIFICATION
+============================================================
+
+The mdadm command successfully removed /dev/sdc from the
+active RAID configuration.
+
+At this point:
+
+    /dev/sdb → active
+    /dev/sdc → removed
+    /dev/sdd → active
+    /dev/sde → active
+
+
+The RAID array remained degraded because the replacement
+member had not yet been added.
+
+
+============================================================
+NEXT STEP
+============================================================
+
+The RAID state was subsequently verified using:
+
+    cat /proc/mdstat
+
+The resulting state showed:
+
+    [4/3] [U_UU]
+
+
+============================================================
+RESULT
+============================================================
+
+The failed member /dev/sdc was successfully hot-removed from
+the RAID 5 array.
+
+The array remained operational in degraded mode with three
+active members.
+
+
+============================================================
+END OF EVIDENCE
+============================================================

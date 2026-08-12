@@ -1,0 +1,86 @@
+============================================================
+RAID 5 LAB — RAID ARRAY CREATION
+============================================================
+
+Purpose:
+Create a Linux software RAID 5 array using mdadm with four
+member devices.
+
+Command:
+
+sudo mdadm --create --verbose /dev/md0 --level=5 --raid-devices=4 /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+Command Output:
+
+[sudo: authenticate] Password:
+
+To optimize recovery speed, it is recommended to enable write-intent bitmap, do you want to enable it now? [y/N]? y
+
+mdadm: layout defaults to left-symmetric
+mdadm: layout defaults to left-symmetric
+mdadm: chunk size defaults to 512K
+
+mdadm: partition table exists on /dev/sdd
+mdadm: partition table exists on /dev/sdd but will be lost or
+meaningless after creating array
+
+mdadm: size set to 175693824K
+
+mdadm: largest drive (/dev/sdb) exceeds size (175693824K) by more than 1%
+
+Continue creating array [y/N]? y
+
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+============================================================
+CONFIGURATION
+============================================================
+
+RAID Device:
+    /dev/md0
+
+RAID Level:
+    RAID 5
+
+RAID Members:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+Number of RAID Devices:
+    4
+
+Metadata Version:
+    1.2
+
+Layout:
+    left-symmetric
+
+Chunk Size:
+    512K
+
+Write-Intent Bitmap:
+    Internal bitmap enabled
+
+============================================================
+NOTES
+============================================================
+
+The member disks were not identical in size.
+
+mdadm selected a common member size based on the smallest
+effective member capacity.
+
+The partition table warning for /dev/sdd was accepted because
+the disk was dedicated to this learning RAID lab.
+
+The RAID array was successfully created and started.
+
+Initial synchronization/recovery began after array creation.
+
+============================================================
+END OF EVIDENCE
+============================================================
