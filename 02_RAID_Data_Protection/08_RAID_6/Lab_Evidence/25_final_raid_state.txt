@@ -1,0 +1,65 @@
+RAID 6 LAB — FINAL RAID STATE
+=============================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md6
+
+
+FINAL RAID CONFIGURATION
+------------------------
+Version            : 1.2
+Raid Level         : raid6
+Array Size         : 351387648 (335.11 GiB 359.82 GB)
+Used Dev Size      : 175693824 (167.55 GiB 179.91 GB)
+Raid Devices       : 4
+Total Devices      : 4
+Persistence        : Superblock is persistent
+
+
+FINAL HEALTH STATE
+------------------
+State              : clean
+Active Devices     : 4
+Working Devices    : 4
+Failed Devices     : 0
+Spare Devices      : 0
+
+
+RAID CONFIGURATION
+------------------
+Layout             : left-symmetric
+Chunk Size         : 512K
+Consistency Policy : bitmap
+Intent Bitmap      : Internal
+
+
+FINAL MEMBER STATE
+------------------
+/dev/sdb → active sync
+/dev/sdc → active sync
+/dev/sdd → active sync
+/dev/sde → active sync
+
+
+FINAL RAID STATUS
+-----------------
+All four RAID members are present and synchronized.
+
+Expected member count:
+    4
+
+Working member count:
+    4
+
+Failed member count:
+    0
+
+/proc/mdstat:
+    [4/4] [UUUU]
+
+
+RESULT
+------
+PASS — RAID 6 redundancy was fully restored after two-member
+failure and sequential rebuild of both replacement members.

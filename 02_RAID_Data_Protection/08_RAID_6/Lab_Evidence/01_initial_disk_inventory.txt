@@ -1,0 +1,46 @@
+RAID 6 LAB — INITIAL DISK INVENTORY
+===================================
+
+COMMAND
+-------
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINTS
+
+LAB DISKS IDENTIFIED
+--------------------
+/dev/sdb → 279.4G
+/dev/sdc → 167.7G
+/dev/sdd → 238.5G
+/dev/sde → 279.4G
+
+SYSTEM DISK
+-----------
+/dev/sda → 465.8G
+Contains:
+    /boot
+    LVM
+    Ubuntu root filesystem
+
+IMPORTANT
+---------
+/dev/sda was NOT used in the RAID 6 lab.
+
+RAID 6 LAB MEMBERS
+------------------
+/dev/sdb
+/dev/sdc
+/dev/sdd
+/dev/sde
+
+DISK SIZE OBSERVATION
+---------------------
+The RAID 6 members are unequal in size.
+
+Smallest member:
+    /dev/sdc → 167.7G
+
+The usable RAID member size is therefore constrained by the
+smallest member region.
+
+RESULT
+------
+PASS — Four dedicated non-system disks identified for the RAID 6 lab.

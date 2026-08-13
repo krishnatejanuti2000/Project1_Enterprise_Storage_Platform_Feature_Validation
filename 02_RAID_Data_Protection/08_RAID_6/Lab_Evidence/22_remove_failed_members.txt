@@ -1,0 +1,49 @@
+RAID 6 LAB — REMOVE FAILED MEMBERS
+===================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+
+RAID state:
+    [4/2] [__UU]
+
+
+REMOVE FIRST FAILED MEMBER
+--------------------------
+COMMAND
+-------
+sudo mdadm --manage /dev/md6 --remove /dev/sdb
+
+OUTPUT
+------
+mdadm: hot removed /dev/sdb from /dev/md6
+
+
+REMOVE SECOND FAILED MEMBER
+---------------------------
+COMMAND
+-------
+sudo mdadm --manage /dev/md6 --remove /dev/sdc
+
+OUTPUT
+------
+mdadm: hot removed /dev/sdc from /dev/md6
+
+
+POST-REMOVAL STATE
+------------------
+/dev/sdb → removed
+/dev/sdc → removed
+/dev/sdd → active
+/dev/sde → active
+
+RAID state:
+    [4/2] [__UU]
+
+
+RESULT
+------
+PASS — Both failed RAID 6 members were successfully removed and
+the array remained active with the two surviving members.

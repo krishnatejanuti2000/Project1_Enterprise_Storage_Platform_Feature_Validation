@@ -1,0 +1,54 @@
+RAID 6 LAB — INITIAL RAID SYNCHRONIZATION
+==========================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+INITIAL RAID STATE
+------------------
+md6 : active raid6 sde[3] sdd[2] sdc[1] sdb[0]
+      351387648 blocks super 1.2 level 6, 512k chunk, algorithm 2 [4/4] [UUUU]
+
+
+INITIAL RESYNC
+--------------
+Resync was started automatically after RAID 6 creation.
+
+Example observed progress:
+
+    resync = 0.5%
+
+Estimated speed:
+    approximately 59 MB/sec
+
+Estimated completion time:
+    approximately 48 minutes
+
+
+RAID MEMBER STATE
+-----------------
+[4/4] [UUUU]
+
+Meaning:
+
+    4 RAID members expected
+    4 RAID members active
+    No failed members
+
+
+BITMAP
+------
+Intent bitmap:
+    Internal
+
+Observed:
+
+    bitmap: 2/2 pages [8KB], 65536KB chunk
+
+
+RESULT
+------
+PASS — RAID 6 initial synchronization started successfully with
+all four members active.

@@ -1,0 +1,62 @@
+RAID 6 LAB — DISK SIGNATURE CLEANUP
+===================================
+
+INITIAL MDADM CHECK
+-------------------
+COMMAND
+-------
+sudo mdadm --examine /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+RESULT
+------
+/dev/sdb → No md superblock detected
+/dev/sdc → No md superblock detected
+/dev/sdd → MBR Magic : aa55
+/dev/sde → MBR Magic : aa55
+
+
+INITIAL WIPEFS CHECK
+--------------------
+COMMAND
+-------
+sudo wipefs -n /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+RESULT
+------
+/dev/sdd → DOS/MBR signature
+/dev/sde → DOS/MBR signature
+
+
+CLEANUP
+-------
+COMMAND
+-------
+sudo wipefs -a /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+RESULT
+------
+DOS/MBR signatures removed from:
+    /dev/sdd
+    /dev/sde
+
+
+FINAL VERIFICATION
+------------------
+COMMAND
+-------
+sudo wipefs -n /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+RESULT
+------
+No signatures reported.
+
+FINAL STATE
+-----------
+/dev/sdb → clean
+/dev/sdc → clean
+/dev/sdd → clean
+/dev/sde → clean
+
+RESULT
+------
+PASS — All four RAID 6 lab disks were clean before RAID creation.

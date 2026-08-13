@@ -1,0 +1,48 @@
+RAID 6 LAB — TWO-MEMBER DEGRADED WRITE TEST
+============================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+
+RAID state:
+    [4/2] [__UU]
+
+
+WRITE TEST
+----------
+COMMAND
+-------
+echo "RAID6-TWO-DISK-DEGRADED-WRITE-TEST" | sudo tee /mnt/raid6/two_disk_degraded_test.txt
+
+
+OUTPUT
+------
+RAID6-TWO-DISK-DEGRADED-WRITE-TEST
+
+
+READ-BACK TEST
+--------------
+COMMAND
+-------
+cat /mnt/raid6/two_disk_degraded_test.txt
+
+
+OUTPUT
+------
+RAID6-TWO-DISK-DEGRADED-WRITE-TEST
+
+
+OBSERVATION
+-----------
+A new file was successfully written while two RAID 6 members
+were failed.
+
+The newly written data was also successfully read back.
+
+
+RESULT
+------
+PASS — Write and read-back operations succeeded while RAID 6
+was operating with two failed members.

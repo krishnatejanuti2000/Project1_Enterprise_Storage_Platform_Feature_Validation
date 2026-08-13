@@ -1,0 +1,101 @@
+RAID 6 LAB — PARITY FAILURE VALIDATION SCOPE
+=============================================
+
+IMPORTANT ARCHITECTURAL NOTE
+----------------------------
+
+RAID 6 uses distributed parity.
+
+There is no permanently dedicated physical:
+
+    "P parity disk"
+
+or:
+
+    "Q parity disk"
+
+
+P AND Q DISTRIBUTION
+--------------------
+
+Across RAID 6 stripes, data and parity are distributed across
+the RAID members.
+
+Therefore a physical member cannot simply be labelled as:
+
+    /dev/sdb = P
+    /dev/sdc = Q
+
+The role of a member varies across stripes.
+
+
+PARITY FAILURE VALIDATION
+-------------------------
+
+The following behaviors were covered during RAID 6 theory:
+
+P parity:
+    XOR-based parity
+
+Q parity:
+    Reed–Solomon-based parity
+    using Galois Field arithmetic
+
+
+P-ONLY FAILURE
+--------------
+
+The theoretical recovery behavior is:
+
+    P information unavailable
+            ↓
+    Recalculate P from surviving data
+
+
+Q-ONLY FAILURE
+--------------
+
+The theoretical recovery behavior is:
+
+    Q information unavailable
+            ↓
+    Recalculate Q using the
+    Reed–Solomon calculation
+
+
+LAB EXECUTION SCOPE
+-------------------
+
+A separate physical "P-only disk failure" or "Q-only disk failure"
+was NOT simulated.
+
+Reason:
+
+    RAID 6 uses distributed P and Q parity rather than dedicated
+    physical P and Q disks.
+
+The practical lab therefore focused on:
+
+    - single physical member failure
+    - two physical member failures
+    - degraded operation
+    - degraded read access
+    - degraded write access
+    - failed-member removal
+    - first replacement rebuild
+    - second replacement rebuild
+    - final RAID health
+    - final data integrity
+
+
+RESULT
+------
+
+Parity-only behavior:
+    Theory validated
+
+Physical P-only/Q-only disk failure simulation:
+    Not separately executed
+
+Distributed parity architecture:
+    Confirmed as the correct operational model

@@ -1,0 +1,30 @@
+RAID 6 LAB — MOUNT RAID 6 FILESYSTEM
+====================================
+
+MOUNT POINT
+-----------
+/mnt/raid6
+
+
+COMMANDS
+--------
+sudo mkdir -p /mnt/raid6
+
+sudo mount /dev/md6 /mnt/raid6
+
+
+RESULT
+------
+Mount completed successfully.
+
+RAID 6 device:
+    /dev/md6
+
+Filesystem:
+    ext4
+
+Mount point:
+    /mnt/raid6
+
+Access mode:
+    read/write

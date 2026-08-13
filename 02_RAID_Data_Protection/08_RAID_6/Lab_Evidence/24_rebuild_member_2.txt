@@ -1,0 +1,60 @@
+RAID 6 LAB — SECOND MEMBER REBUILD
+==================================
+
+REPLACEMENT MEMBER
+------------------
+/dev/sdc
+
+
+ADD COMMAND
+-----------
+sudo mdadm --manage /dev/md6 --add /dev/sdc
+
+
+OUTPUT
+------
+mdadm: re-added /dev/sdc
+
+
+INITIAL RECOVERY
+----------------
+After re-adding /dev/sdc:
+
+RAID state:
+    [4/3] [U_UU]
+
+Recovery observed:
+    recovery = 10.1%
+
+Observed recovery speed:
+    approximately 151 MB/sec
+
+
+RECOVERY PROCESS
+----------------
+The first replacement member /dev/sdb had already completed
+its rebuild.
+
+Remaining missing member:
+    /dev/sdc
+
+Replacement member:
+    /dev/sdc
+
+The RAID 6 array reconstructed the remaining missing information
+and wrote the recovered blocks onto /dev/sdc.
+
+
+RECOVERY COMPLETION
+-------------------
+After recovery completed:
+
+RAID state:
+    [4/4] [UUUU]
+
+All four members returned to active operation.
+
+
+RESULT
+------
+PASS — Second replacement member /dev/sdc was successfully rebuilt.

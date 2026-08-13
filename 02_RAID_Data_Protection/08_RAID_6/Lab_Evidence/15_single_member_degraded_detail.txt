@@ -1,0 +1,51 @@
+RAID 6 LAB — SINGLE-MEMBER DEGRADED DETAIL
+==========================================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md6
+
+
+DEGRADED RAID STATE
+-------------------
+State             : clean, degraded
+Active Devices    : 3
+Working Devices   : 3
+Failed Devices    : 1
+Spare Devices     : 0
+
+
+LAYOUT
+------
+Layout            : left-symmetric
+Chunk Size        : 512K
+Consistency Policy: bitmap
+
+
+MEMBER STATE
+------------
+/dev/sdb → faulty
+/dev/sdc → active sync
+/dev/sdd → active sync
+/dev/sde → active sync
+
+
+RAID DEVICE MAP
+---------------
+RaidDevice 0 → removed/faulty member /dev/sdb
+RaidDevice 1 → /dev/sdc
+RaidDevice 2 → /dev/sdd
+RaidDevice 3 → /dev/sde
+
+
+INTERPRETATION
+--------------
+The RAID 6 array remained operational with one failed member.
+
+The array entered a clean, degraded state while retaining
+three working members.
+
+
+RESULT
+------
+PASS — Detailed single-member degraded RAID state confirmed.

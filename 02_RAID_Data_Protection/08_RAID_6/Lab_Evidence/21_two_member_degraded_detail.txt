@@ -1,0 +1,54 @@
+RAID 6 LAB — TWO-MEMBER DEGRADED DETAIL
+========================================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md6
+
+
+TWO-MEMBER DEGRADED STATE
+--------------------------
+State             : clean, degraded
+Active Devices    : 2
+Working Devices   : 2
+Failed Devices    : 2
+Spare Devices     : 0
+
+
+LAYOUT
+------
+Layout            : left-symmetric
+Chunk Size        : 512K
+Consistency Policy: bitmap
+
+
+MEMBER STATE
+------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+/dev/sdd → active sync
+/dev/sde → active sync
+
+
+RAID DEVICE MAP
+---------------
+RaidDevice 0 → removed /dev/sdb
+RaidDevice 1 → removed /dev/sdc
+RaidDevice 2 → /dev/sdd
+RaidDevice 3 → /dev/sde
+
+
+INTERPRETATION
+--------------
+The RAID 6 array remained active with two failed members.
+
+Two working members remained available while the array continued
+to provide filesystem access.
+
+This represents the normal two-member fault-tolerance limit of
+RAID 6.
+
+
+RESULT
+------
+PASS — Detailed two-member degraded RAID state confirmed.

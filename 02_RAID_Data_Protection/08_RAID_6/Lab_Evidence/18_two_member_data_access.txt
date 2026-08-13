@@ -1,0 +1,42 @@
+RAID 6 LAB — TWO-MEMBER DATA ACCESS
+===================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+
+RAID state:
+    [4/2] [__UU]
+
+
+TEST
+----
+Read all three original test files while two RAID 6 members
+were failed.
+
+COMMAND
+-------
+cat /mnt/raid6/testfile_01.txt
+cat /mnt/raid6/testfile_02.txt
+cat /mnt/raid6/testfile_03.txt
+
+
+RESULT
+------
+testfile_01.txt → READ SUCCESS
+testfile_02.txt → READ SUCCESS
+testfile_03.txt → READ SUCCESS
+
+
+OBSERVATION
+-----------
+The RAID 6 filesystem remained accessible with two members failed.
+
+Existing test data remained readable at the RAID 6 two-member
+fault-tolerance limit.
+
+
+RESULT
+------
+PASS — Two-member degraded read access confirmed.

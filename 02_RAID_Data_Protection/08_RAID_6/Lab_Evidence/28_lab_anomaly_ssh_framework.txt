@@ -1,0 +1,70 @@
+RAID 6 LAB — ENVIRONMENT ANOMALY
+================================
+
+INCIDENT
+--------
+During the first RAID 6 creation/resynchronization attempt, an
+external SSH framework/cleanup process interfered with the lab disks.
+
+OBSERVED SYMPTOMS
+-----------------
+The RAID 6 array was initially created successfully.
+
+During the later lab session:
+
+    /proc/mdstat
+    ↓
+    RAID array disappeared
+
+Subsequent checks showed:
+
+    mdadm --examine /dev/sdb /dev/sdc /dev/sdd /dev/sde
+    ↓
+    No md superblock detected
+
+CAUSE
+-----
+The external SSH framework/cleanup process had removed the existing
+RAID metadata from the lab disks.
+
+ADDITIONAL OBSERVATION
+----------------------
+/dev/sdb was also found mounted as:
+
+    /mnt/sdb
+
+This caused an initial RAID creation attempt to fail with:
+
+    Device or resource busy
+
+The filesystem was unmounted before the successful RAID 6 recreation.
+
+RESOLUTION
+----------
+1. Confirmed the RAID lab disks were safe to reuse.
+2. Unmounted /dev/sdb from /mnt/sdb.
+3. Removed the remaining ext4 signature from /dev/sdb.
+4. Verified all four lab disks were clean.
+5. Recreated the RAID 6 array as /dev/md6.
+6. Completed initial synchronization.
+7. Created the ext4 filesystem.
+8. Mounted /dev/md6 at /mnt/raid6.
+9. Completed the full RAID 6 failure/rebuild validation.
+
+IMPACT
+------
+No RAID 6 test data from the successful validation run was lost.
+
+The anomaly occurred before the successful test-data and failure-
+recovery validation cycle.
+
+FINAL STATUS
+------------
+Resolved.
+
+The successful RAID 6 lab completed with:
+
+    4/4 active members
+    0 failed members
+    [UUUU]
+    Data integrity PASS

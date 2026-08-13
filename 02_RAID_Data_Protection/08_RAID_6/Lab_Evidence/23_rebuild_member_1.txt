@@ -1,0 +1,64 @@
+RAID 6 LAB — FIRST MEMBER REBUILD
+=================================
+
+REPLACEMENT MEMBER
+------------------
+/dev/sdb
+
+
+ADD COMMAND
+-----------
+sudo mdadm --manage /dev/md6 --add /dev/sdb
+
+
+OUTPUT
+------
+mdadm: re-added /dev/sdb
+
+
+INITIAL RECOVERY
+----------------
+After re-adding /dev/sdb:
+
+RAID state:
+    [4/2] [__UU]
+
+Recovery observed:
+    recovery = 10.7%
+
+Observed recovery speed:
+    approximately 130 MB/sec
+
+
+RECOVERY PROCESS
+----------------
+Two members were previously missing.
+
+Surviving members:
+    /dev/sdd
+    /dev/sde
+
+Replacement member:
+    /dev/sdb
+
+The RAID 6 array reconstructed missing information and wrote the
+recovered blocks onto /dev/sdb.
+
+
+RECOVERY COMPLETION
+-------------------
+After recovery completed:
+
+RAID state:
+    [4/3] [U_UU]
+
+/dev/sdb:
+    active sync
+
+/dev/sdc:
+    still removed
+
+
+RESULT
+------
+PASS — First replacement member /dev/sdb was successfully rebuilt.

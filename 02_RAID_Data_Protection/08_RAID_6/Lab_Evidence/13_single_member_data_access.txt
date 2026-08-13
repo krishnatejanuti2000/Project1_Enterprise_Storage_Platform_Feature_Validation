@@ -1,0 +1,39 @@
+RAID 6 LAB — SINGLE-MEMBER DATA ACCESS
+======================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+
+RAID STATE:
+    [4/3] [_UUU]
+
+
+TEST
+----
+Read all three original test files while RAID 6 was degraded.
+
+COMMAND
+-------
+cat /mnt/raid6/testfile_01.txt
+cat /mnt/raid6/testfile_02.txt
+cat /mnt/raid6/testfile_03.txt
+
+
+RESULT
+------
+testfile_01.txt → READ SUCCESS
+testfile_02.txt → READ SUCCESS
+testfile_03.txt → READ SUCCESS
+
+
+OBSERVATION
+-----------
+The RAID 6 filesystem remained accessible after one member failure.
+
+The test files remained readable even though /dev/sdb was faulty.
+
+
+RESULT
+------
+PASS — Single-member degraded read access confirmed.

@@ -1,0 +1,76 @@
+RAID 6 LAB — RAID ARRAY CREATION
+================================
+
+COMMAND
+-------
+sudo mdadm --create --verbose /dev/md6 \
+  --level=6 \
+  --raid-devices=4 \
+  /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+INTERACTIVE OPTIONS
+-------------------
+Write-intent bitmap:
+    y
+
+Continue creating array:
+    y
+
+
+OUTPUT
+------
+mdadm: layout defaults to left-symmetric
+mdadm: layout defaults to left-symmetric
+mdadm: size set to 175693824K
+mdadm: largest drive (/dev/sdb) exceeds size (175693824K) by more than 1%
+Continue creating array [y/N]? y
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md6 started.
+
+
+RAID CONFIGURATION
+------------------
+RAID Device:
+    /dev/md6
+
+RAID Level:
+    RAID 6
+
+RAID Members:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+RAID Devices:
+    4
+
+Metadata:
+    Version 1.2
+
+Layout:
+    left-symmetric
+
+Chunk Size:
+    512K
+
+Intent Bitmap:
+    Internal
+
+
+CAPACITY OBSERVATION
+--------------------
+The member disks are unequal in size.
+
+Smallest member:
+    /dev/sdc → approximately 167.7G
+
+mdadm therefore limited the common member size to:
+
+    175693824K
+
+
+RESULT
+------
+PASS — RAID 6 array /dev/md6 created successfully.

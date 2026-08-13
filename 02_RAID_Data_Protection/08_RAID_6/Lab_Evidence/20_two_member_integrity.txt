@@ -1,0 +1,53 @@
+RAID 6 LAB — TWO-MEMBER DATA INTEGRITY
+=======================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+
+RAID state:
+    [4/2] [__UU]
+
+
+COMMAND
+-------
+sha256sum /mnt/raid6/testfile_01.txt \
+          /mnt/raid6/testfile_02.txt \
+          /mnt/raid6/testfile_03.txt
+
+
+ORIGINAL BASELINE
+-----------------
+testfile_01.txt
+4f09387b750aaf7d543327717c5431c7a65d46dd9258fd3b2a53d4eeb0c3858e
+
+testfile_02.txt
+4e52ede917bccaf4f2f09df06377fc11475f0079863db35ede7aec59bb556f9b
+
+testfile_03.txt
+9eb575ee51064b7ab9b7cbd84e425b65c1e841bacda39a00255aacafd0470ce6
+
+
+OBSERVED RESULT
+----------------
+All three SHA-256 values matched the original baseline.
+
+Therefore:
+
+    Existing data integrity → PASS
+
+
+ADDITIONAL DEGRADED-WRITE FILE
+------------------------------
+Filename:
+    two_disk_degraded_test.txt
+
+SHA-256:
+    49e144f5494b3c55674ef3f78c9c7b3ec93df21e4c82b13df2d7d71f02342c2f
+
+
+RESULT
+------
+PASS — Data integrity was preserved while RAID 6 operated with
+two members failed.

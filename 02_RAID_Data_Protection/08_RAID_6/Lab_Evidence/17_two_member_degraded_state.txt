@@ -1,0 +1,59 @@
+RAID 6 LAB — TWO-MEMBER DEGRADED STATE
+======================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+OUTPUT
+------
+md6 : active raid6 sde[3] sdd[2] sdc[1](F) sdb[0](F)
+      351387648 blocks super 1.2 level 6, 512k chunk, algorithm 2 [4/2] [__UU]
+
+bitmap: 1/2 pages [4KB], 65536KB chunk
+
+
+INTERPRETATION
+--------------
+RAID device:
+    /dev/md6
+
+RAID level:
+    RAID 6
+
+Expected members:
+    4
+
+Working members:
+    2
+
+Failed members:
+    2
+
+Member state:
+    [__UU]
+
+
+FAILED MEMBERS
+--------------
+/dev/sdb
+/dev/sdc
+
+
+WORKING MEMBERS
+---------------
+/dev/sdd
+/dev/sde
+
+
+OBSERVATION
+-----------
+The RAID 6 array remained active with two members failed.
+
+This represents the normal two-member fault-tolerance limit of RAID 6.
+
+
+RESULT
+------
+PASS — Two-member degraded RAID 6 state confirmed.

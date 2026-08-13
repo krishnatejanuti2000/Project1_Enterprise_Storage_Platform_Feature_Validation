@@ -1,0 +1,65 @@
+RAID 6 LAB — TEST DATA CREATION
+================================
+
+TEST DATA LOCATION
+------------------
+/mnt/raid6
+
+
+FILE 1
+------
+Filename:
+    testfile_01.txt
+
+Contents:
+    RAID6-TEST-DATA-001
+    Enterprise Storage Validation
+    RAID Level: RAID 6
+    Primary Test: Data Accessibility
+    Member Count: 4
+    Parity: P + Q
+    Status: Initial Healthy State
+
+
+FILE 2
+------
+Filename:
+    testfile_02.txt
+
+Contents:
+    RAID6-TEST-DATA-002
+    Storage Engineering Laboratory
+    Test Scenario: Failure Recovery
+    Single Failure: Supported
+    Dual Failure: Supported
+    Rebuild Validation: Required
+    Data Integrity: Required
+
+
+FILE 3
+------
+Filename:
+    testfile_03.txt
+
+Contents:
+    RAID6-TEST-DATA-003
+    Linux mdadm RAID Validation
+    Filesystem: ext4
+    Mount Point: /mnt/raid6
+    Purpose: Reconstruction and Rebuild Testing
+    Expected Result: Data Remains Consistent
+    Final Check: PASS
+
+
+VERIFICATION
+------------
+All three files were successfully created.
+
+All three files were successfully read back from:
+
+    /mnt/raid6
+
+
+RESULT
+------
+PASS — RAID 6 test data created successfully and verified readable.

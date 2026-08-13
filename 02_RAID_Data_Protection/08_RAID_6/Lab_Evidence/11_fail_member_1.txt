@@ -1,0 +1,44 @@
+RAID 6 LAB — FIRST MEMBER FAILURE
+=================================
+
+FAILURE SIMULATION
+------------------
+Target member:
+
+    /dev/sdb
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md6 --fail /dev/sdb
+
+
+RESULT
+------
+/dev/sdb was successfully marked as faulty.
+
+
+POST-FAILURE MEMBER STATE
+-------------------------
+/dev/sdb → faulty
+/dev/sdc → active
+/dev/sdd → active
+/dev/sde → active
+
+
+POST-FAILURE RAID STATE
+-----------------------
+Expected state:
+
+    [4/3] [_UUU]
+
+Meaning:
+
+    4 RAID members expected
+    3 members working
+    1 member failed
+
+
+RESULT
+------
+PASS — First RAID 6 member failure was successfully simulated.

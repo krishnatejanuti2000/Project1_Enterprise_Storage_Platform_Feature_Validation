@@ -1,0 +1,42 @@
+RAID 6 LAB — SECOND MEMBER FAILURE
+==================================
+
+FAILURE SIMULATION
+------------------
+Target member:
+
+    /dev/sdc
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md6 --fail /dev/sdc
+
+
+RESULT
+------
+/dev/sdc was successfully marked as faulty.
+
+
+POST-FAILURE MEMBER STATE
+-------------------------
+/dev/sdb → faulty
+/dev/sdc → faulty
+/dev/sdd → active
+/dev/sde → active
+
+
+EXPECTED RAID STATE
+-------------------
+    [4/2] [__UU]
+
+Meaning:
+
+    4 RAID members expected
+    2 members working
+    2 members failed
+
+
+RESULT
+------
+PASS — Second RAID 6 member failure was successfully simulated.

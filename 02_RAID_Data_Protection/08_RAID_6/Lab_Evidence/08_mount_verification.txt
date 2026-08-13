@@ -1,0 +1,34 @@
+RAID 6 LAB — MOUNT VERIFICATION
+===============================
+
+COMMAND
+-------
+mount | grep /mnt/raid6
+
+
+OUTPUT
+------
+/dev/md6 on /mnt/raid6 type ext4 (rw,relatime,stripe=256)
+
+
+VERIFICATION
+------------
+RAID Device:
+    /dev/md6
+
+Filesystem:
+    ext4
+
+Mount Point:
+    /mnt/raid6
+
+Access:
+    read/write
+
+Filesystem RAID stripe parameter:
+    stripe=256
+
+
+RESULT
+------
+PASS — RAID 6 ext4 filesystem is mounted successfully at /mnt/raid6.

@@ -1,0 +1,43 @@
+RAID 6 LAB — FILESYSTEM CREATION
+================================
+
+COMMAND
+-------
+sudo mkfs.ext4 /dev/md6
+
+
+OUTPUT
+------
+mke2fs 1.47.2 (1-Jan-2025)
+
+Creating filesystem with:
+    87846912 4k blocks
+    21962752 inodes
+
+Filesystem UUID:
+    4f54e621-1d94-44fb-8c70-4d2e3a213302
+
+Superblock backups were created successfully.
+
+Filesystem creation completed with:
+    Allocating group tables: done
+    Writing inode tables: done
+    Creating journal: done
+    Writing superblocks and filesystem accounting information: done
+
+
+FILESYSTEM
+----------
+Type:
+    ext4
+
+Device:
+    /dev/md6
+
+UUID:
+    4f54e621-1d94-44fb-8c70-4d2e3a213302
+
+
+RESULT
+------
+PASS — ext4 filesystem successfully created on the RAID 6 device.
