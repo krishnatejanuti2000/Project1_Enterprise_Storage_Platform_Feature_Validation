@@ -1,0 +1,45 @@
+RAID 10 LAB — REMOVE FAILED MEMBERS
+===================================
+
+FAILED MEMBERS
+--------------
+/dev/sdb
+/dev/sdd
+
+
+REMOVE FIRST FAILED MEMBER
+--------------------------
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --remove /dev/sdb
+
+OUTPUT
+------
+mdadm: hot removed /dev/sdb from /dev/md10
+
+
+REMOVE SECOND FAILED MEMBER
+---------------------------
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --remove /dev/sdd
+
+OUTPUT
+------
+mdadm: hot removed /dev/sdd from /dev/md10
+
+
+POST-REMOVAL STATE
+------------------
+/dev/sdb → removed
+/dev/sdc → active
+/dev/sdd → removed
+/dev/sde → active
+
+RAID state:
+    [4/2] [_U_U]
+
+
+RESULT
+------
+PASS — Both faulty members were successfully removed.

@@ -1,0 +1,34 @@
+RAID 10 LAB — MOUNT VERIFICATION
+================================
+
+COMMAND
+-------
+mount | grep /mnt/raid10
+
+
+OUTPUT
+------
+/dev/md10 on /mnt/raid10 type ext4 (rw,relatime,stripe=256)
+
+
+VERIFICATION
+------------
+RAID device:
+    /dev/md10
+
+Filesystem:
+    ext4
+
+Mount point:
+    /mnt/raid10
+
+Access:
+    read/write
+
+Stripe parameter:
+    stripe=256
+
+
+RESULT
+------
+PASS — RAID 10 ext4 filesystem is mounted successfully.

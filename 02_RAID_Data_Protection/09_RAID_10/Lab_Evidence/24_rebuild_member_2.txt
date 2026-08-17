@@ -1,0 +1,41 @@
+RAID 10 LAB — SECOND MEMBER REBUILD
+===================================
+
+REPLACEMENT MEMBER
+------------------
+/dev/sdd
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --add /dev/sdd
+
+
+OUTPUT
+------
+mdadm: re-added /dev/sdd
+
+
+RECOVERY
+--------
+/dev/sdd was re-added successfully.
+
+The recovery completed before the next mdstat check.
+
+
+FINAL OBSERVED MEMBER STATE
+---------------------------
+[4/4] [UUUU]
+
+
+MEMBERS
+-------
+/dev/sdb → active
+/dev/sdc → active
+/dev/sdd → active
+/dev/sde → active
+
+
+RESULT
+------
+PASS — Second replacement member /dev/sdd was successfully rebuilt.

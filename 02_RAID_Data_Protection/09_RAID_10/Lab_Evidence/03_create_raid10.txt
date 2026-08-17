@@ -1,0 +1,73 @@
+RAID 10 LAB — RAID ARRAY CREATION
+=================================
+
+COMMAND
+-------
+sudo mdadm --create /dev/md10 \
+  --level=10 \
+  --raid-devices=4 \
+  /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+INTERACTIVE OPTIONS
+-------------------
+Write-intent bitmap:
+    y
+
+Continue creating array:
+    y
+
+
+OUTPUT
+------
+To optimize recovery speed, it is recommended to enable write-intent bitmap.
+Write-intent bitmap:
+    y
+
+mdadm: largest drive (/dev/sdb) exceeds size (175693824K) by more than 1%
+Continue creating array [y/N]?
+    y
+
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md10 started.
+
+
+RAID CONFIGURATION
+------------------
+RAID device:
+    /dev/md10
+
+RAID level:
+    RAID 10
+
+RAID devices:
+    4
+
+Members:
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+Metadata:
+    Version 1.2
+
+Intent bitmap:
+    Internal
+
+
+CAPACITY OBSERVATION
+--------------------
+The member disks are unequal in size.
+
+Smallest member:
+    /dev/sdc → approximately 167.7G
+
+mdadm therefore selected a common member size of:
+
+    175693824K
+
+
+RESULT
+------
+PASS — RAID 10 array /dev/md10 created successfully.

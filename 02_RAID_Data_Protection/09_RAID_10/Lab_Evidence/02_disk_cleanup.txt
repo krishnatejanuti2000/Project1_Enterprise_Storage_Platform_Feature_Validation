@@ -1,0 +1,69 @@
+RAID 10 LAB — DISK CLEANUP
+===========================
+
+INITIAL SIGNATURE CHECK
+-----------------------
+COMMAND
+-------
+sudo wipefs -n /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+INITIAL RESULT
+--------------
+/dev/sdb → DOS/MBR signature
+/dev/sdc → DOS/MBR signature
+/dev/sdd → DOS/MBR signature
+/dev/sde → no signature reported
+
+
+PARTITION CLEANUP
+-----------------
+Old partition structures were removed from:
+
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+
+
+FINAL SIGNATURE CLEANUP
+-----------------------
+COMMAND
+-------
+sudo wipefs -a /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+VERIFICATION
+------------
+COMMAND
+-------
+sudo wipefs -n /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+RESULT
+------
+No signatures were reported.
+
+
+FINAL DISK STATE
+----------------
+/dev/sdb → clean
+/dev/sdc → clean
+/dev/sdd → clean
+/dev/sde → clean
+
+
+ADDITIONAL VERIFICATION
+-----------------------
+lsblk confirmed that no partitions remained on the four lab disks.
+
+Final lab members:
+
+    /dev/sdb
+    /dev/sdc
+    /dev/sdd
+    /dev/sde
+
+
+RESULT
+------
+PASS — RAID 10 lab disks were cleaned and prepared for RAID creation.

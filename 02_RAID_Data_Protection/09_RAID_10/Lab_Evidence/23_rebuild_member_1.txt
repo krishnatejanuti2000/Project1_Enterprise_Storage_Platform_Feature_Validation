@@ -1,0 +1,53 @@
+RAID 10 LAB — FIRST MEMBER REBUILD
+==================================
+
+REPLACEMENT MEMBER
+------------------
+/dev/sdb
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --add /dev/sdb
+
+
+OUTPUT
+------
+mdadm: re-added /dev/sdb
+
+
+RECOVERY OBSERVATION
+--------------------
+Initial recovery output:
+
+recovery = 92.5% (162529280/175693824)
+finish=1.4min
+speed=155648K/sec
+
+
+INITIAL STATE
+-------------
+[4/2] [_U_U]
+
+
+RECOVERY COMPLETION
+-------------------
+Final observed state:
+
+[4/3] [UU_U]
+
+
+INTERPRETATION
+--------------
+/dev/sdb was rebuilt successfully.
+
+Current members:
+    /dev/sdb → active
+    /dev/sdc → active
+    /dev/sdd → missing
+    /dev/sde → active
+
+
+RESULT
+------
+PASS — First replacement member /dev/sdb was successfully rebuilt.

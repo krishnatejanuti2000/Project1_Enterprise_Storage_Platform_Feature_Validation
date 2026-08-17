@@ -1,0 +1,55 @@
+RAID 10 LAB — SAME-MIRROR FAILURE ATTEMPT
+=========================================
+
+PURPOSE
+-------
+Demonstrate the behavior when a second member belonging to the
+same RAID 10 mirror relationship as an already-failed member is
+targeted.
+
+
+FIRST FAILED MEMBER
+-------------------
+/dev/sdb
+
+
+SECOND TARGET
+-------------
+/dev/sdc
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --fail /dev/sdc
+
+
+OUTPUT
+------
+mdadm: Cannot remove /dev/sdc from /dev/md10, array will be failed.
+
+
+INTERPRETATION
+--------------
+/dev/sdb was already faulty.
+
+Attempting to fail /dev/sdc would have removed the remaining member
+required by that mirror relationship.
+
+mdadm therefore refused the operation because the array would fail.
+
+
+IMPORTANT OBSERVATION
+---------------------
+The lab did NOT force this failure with --force.
+
+The objective was to preserve the valid RAID 10 array and capture
+the actual mdadm safety behavior.
+
+
+RESULT
+------
+PASS — Same-mirror failure protection behavior demonstrated.
+
+Operational lesson:
+    Do not determine RAID 10 survivability from failure count alone.
+    Determine which mirror relationship each failed member belongs to.

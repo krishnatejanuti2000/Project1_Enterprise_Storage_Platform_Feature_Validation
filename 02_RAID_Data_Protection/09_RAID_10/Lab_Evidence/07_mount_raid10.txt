@@ -1,0 +1,30 @@
+RAID 10 LAB — MOUNT RAID 10 FILESYSTEM
+======================================
+
+MOUNT POINT
+-----------
+/mnt/raid10
+
+
+COMMANDS
+--------
+sudo mkdir -p /mnt/raid10
+
+sudo mount /dev/md10 /mnt/raid10
+
+
+RESULT
+------
+Mount completed successfully.
+
+RAID device:
+    /dev/md10
+
+Filesystem:
+    ext4
+
+Mount point:
+    /mnt/raid10
+
+Access mode:
+    read/write

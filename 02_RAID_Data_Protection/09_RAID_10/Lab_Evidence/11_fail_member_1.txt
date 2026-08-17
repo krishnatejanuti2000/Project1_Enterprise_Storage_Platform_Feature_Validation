@@ -1,0 +1,34 @@
+RAID 10 LAB — FIRST MEMBER FAILURE
+==================================
+
+TARGET MEMBER
+-------------
+/dev/sdb
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --fail /dev/sdb
+
+
+RESULT
+------
+/dev/sdb was successfully marked as faulty.
+
+
+POST-FAILURE STATE
+------------------
+/dev/sdb → faulty
+/dev/sdc → active
+/dev/sdd → active
+/dev/sde → active
+
+
+RAID STATE
+----------
+[4/3] [_UUU]
+
+
+RESULT
+------
+PASS — First RAID 10 member failure successfully simulated.

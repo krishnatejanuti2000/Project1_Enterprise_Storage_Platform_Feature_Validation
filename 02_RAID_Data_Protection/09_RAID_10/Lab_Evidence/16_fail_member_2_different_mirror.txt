@@ -1,0 +1,45 @@
+RAID 10 LAB — SECOND MEMBER FAILURE
+===================================
+
+FIRST FAILED MEMBER
+-------------------
+/dev/sdb
+
+
+SECOND TARGET MEMBER
+--------------------
+/dev/sdd
+
+
+COMMAND
+-------
+sudo mdadm --manage /dev/md10 --fail /dev/sdd
+
+
+RESULT
+------
+/dev/sdd was successfully marked as faulty.
+
+
+POST-FAILURE STATE
+------------------
+/dev/sdb → faulty
+/dev/sdc → active
+/dev/sdd → faulty
+/dev/sde → active
+
+
+RAID STATE
+----------
+[4/2] [_U_U]
+
+
+FAILURE PATTERN
+---------------
+The two failed members belong to different mirror relationships
+for the near=2 RAID 10 geometry.
+
+
+RESULT
+------
+PASS — Two-member distributed failure successfully simulated.

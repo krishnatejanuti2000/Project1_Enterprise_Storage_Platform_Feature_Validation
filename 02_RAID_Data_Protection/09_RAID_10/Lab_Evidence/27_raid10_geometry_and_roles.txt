@@ -1,0 +1,89 @@
+RAID 10 LAB — GEOMETRY AND DEVICE ROLES
+=======================================
+
+COMMAND
+-------
+sudo mdadm --examine /dev/sdb /dev/sdc /dev/sdd /dev/sde
+
+
+COMMON ARRAY INFORMATION
+------------------------
+Raid Level:
+    raid10
+
+Raid Devices:
+    4
+
+Layout:
+    near=2
+
+Chunk Size:
+    512K
+
+
+DEVICE ROLES
+------------
+
+/dev/sdb:
+    Device Role: Active device 0
+
+/dev/sdc:
+    Device Role: Active device 1
+
+/dev/sdd:
+    Device Role: Active device 2
+
+/dev/sde:
+    Device Role: Active device 3
+
+
+ARRAY STATE OBSERVATIONS
+------------------------
+When /dev/sdb was faulty:
+
+    /dev/sdb → Array State AAAA before failure history
+    /dev/sdc → Array State .AAA
+    /dev/sdd → Array State .AAA
+    /dev/sde → Array State .AAA
+
+
+IMPORTANT LAB OBSERVATION
+-------------------------
+The earlier interpretation of mdadm's:
+
+    set-A
+    set-B
+
+labels was not sufficient by itself to determine the mirror
+relationship.
+
+The actual RAID10 geometry is defined by:
+
+    RAID Level = raid10
+    Layout     = near=2
+    Device Role 0..3
+
+
+OPERATIONAL LESSON
+------------------
+Never infer RAID10 mirror topology solely from the visible
+set-A/set-B labels.
+
+Use the actual RAID geometry and device roles together with
+the mdadm behavior observed during failure testing.
+
+
+SAME-MIRROR FAILURE EVIDENCE
+----------------------------
+With /dev/sdb already faulty, attempting to fail /dev/sdc produced:
+
+    mdadm: Cannot remove /dev/sdc from /dev/md10, array will be failed.
+
+This demonstrated that the second failure would have exceeded the
+survivable redundancy of the array.
+
+
+RESULT
+------
+PASS — Actual RAID10 near=2 geometry and failure behavior were
+validated directly using mdadm metadata.

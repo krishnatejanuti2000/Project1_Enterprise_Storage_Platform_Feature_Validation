@@ -1,0 +1,43 @@
+RAID 10 LAB — INITIAL RAID SYNCHRONIZATION
+==========================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+OUTPUT
+------
+md10 : active raid10 sde[3] sdd[2] sdc[1] sdb[0]
+      351387648 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      [>....................]  resync =  1.0% (3611904/351387648) finish=27.2min speed=212464K/sec
+      bitmap: 3/3 pages [12KB], 65536KB chunk
+
+
+RAID STATE DURING INITIAL RESYNC
+--------------------------------
+RAID level:
+    RAID 10
+
+Expected members:
+    4
+
+Active members:
+    4
+
+Member state:
+    [UUUU]
+
+Copies:
+    2 near-copies
+
+Chunk size:
+    512K
+
+Initial resync:
+    In progress
+
+
+RESULT
+------
+PASS — RAID 10 initial synchronization started successfully.

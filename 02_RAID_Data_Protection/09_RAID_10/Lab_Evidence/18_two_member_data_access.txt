@@ -1,0 +1,32 @@
+RAID 10 LAB — TWO-MEMBER DATA ACCESS
+====================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdd → faulty
+
+RAID state:
+    [4/2] [_U_U]
+
+
+TEST
+----
+All three original test files were read while two members were failed.
+
+Results:
+    testfile_01.txt → READ SUCCESS
+    testfile_02.txt → READ SUCCESS
+    testfile_03.txt → READ SUCCESS
+
+
+OBSERVATION
+-----------
+Each affected mirror relationship retained a surviving member.
+
+The RAID 10 filesystem remained accessible.
+
+
+RESULT
+------
+PASS — Two-member distributed-failure read access confirmed.

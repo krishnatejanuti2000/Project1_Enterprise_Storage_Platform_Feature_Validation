@@ -1,0 +1,53 @@
+RAID 10 LAB — HEALTHY RAID STATE
+================================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md10
+
+
+OUTPUT
+------
+Version           : 1.2
+Creation Time     : Mon Aug 17 03:54:07 2026
+Raid Level        : raid10
+Array Size        : 351387648 (335.11 GiB 359.82 GB)
+Used Dev Size     : 175693824 (167.55 GiB 179.91 GB)
+Raid Devices      : 4
+Total Devices     : 4
+Persistence       : Superblock is persistent
+
+Intent Bitmap     : Internal
+
+State             : clean
+Active Devices    : 4
+Working Devices   : 4
+Failed Devices    : 0
+Spare Devices     : 0
+
+Layout            : near=2
+Chunk Size        : 512K
+Consistency Policy: bitmap
+
+
+RAID MEMBERS
+------------
+/dev/sdb → active sync set-A
+/dev/sdc → active sync set-B
+/dev/sdd → active sync set-A
+/dev/sde → active sync set-B
+
+
+ARRAY IDENTITY
+--------------
+Name:
+    winteck:10
+
+UUID:
+    4a00c997:d17a84de:26d02f93:2164f3fe
+
+
+RESULT
+------
+PASS — RAID 10 is fully synchronized and healthy.
+All four members are active and synchronized.

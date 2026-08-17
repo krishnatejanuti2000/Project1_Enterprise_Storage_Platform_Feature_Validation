@@ -1,0 +1,35 @@
+RAID 10 LAB — TWO-MEMBER DATA INTEGRITY
+=======================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+/dev/sdd → faulty
+
+
+COMMAND
+-------
+sha256sum /mnt/raid10/testfile_01.txt \
+          /mnt/raid10/testfile_02.txt \
+          /mnt/raid10/testfile_03.txt
+
+
+BASELINE HASHES
+---------------
+testfile_01.txt
+193c5a752e5d8d85dbb7a2b6cf196a528a16cd85e11c990421fe26caf6520fa7
+
+testfile_02.txt
+1bc12abe6b6fa40b1b26f586a2ee9a25a0e1b59102b321922f42f8d29300571e
+
+testfile_03.txt
+f72a17cefd111ed983773719bdb268091dd729a258158d4d6961f58c5a98c51c
+
+
+RESULT
+------
+All three hashes matched the healthy-state baseline.
+
+Conclusion:
+    PASS — Data integrity was preserved during the two-member
+    distributed RAID 10 failure.

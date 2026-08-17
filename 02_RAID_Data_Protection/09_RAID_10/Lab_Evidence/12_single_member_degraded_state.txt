@@ -1,0 +1,36 @@
+RAID 10 LAB — SINGLE-MEMBER DEGRADED STATE
+==========================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+OUTPUT
+------
+md10 : active raid10 sde[3] sdd[2] sdc[1] sdb[0](F)
+      351387648 blocks super 1.2 512K chunks 2 near-copies [4/3] [_UUU]
+      bitmap: 2/3 pages [8KB], 65536KB chunk
+
+
+INTERPRETATION
+--------------
+Expected members:
+    4
+
+Working members:
+    3
+
+Failed members:
+    1
+
+Failed member:
+    /dev/sdb
+
+RAID state:
+    [4/3] [_UUU]
+
+
+RESULT
+------
+PASS — RAID 10 remained operational in degraded mode.

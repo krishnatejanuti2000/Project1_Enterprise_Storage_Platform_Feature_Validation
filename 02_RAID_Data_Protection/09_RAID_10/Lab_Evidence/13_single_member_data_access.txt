@@ -1,0 +1,30 @@
+RAID 10 LAB — SINGLE-MEMBER DATA ACCESS
+=======================================
+
+FAILURE CONDITION
+------------------
+/dev/sdb → faulty
+
+RAID state:
+    [4/3] [_UUU]
+
+
+TEST
+----
+All three RAID 10 test files were read after /dev/sdb failed.
+
+Files:
+    testfile_01.txt → READ SUCCESS
+    testfile_02.txt → READ SUCCESS
+    testfile_03.txt → READ SUCCESS
+
+
+OBSERVATION
+-----------
+The surviving RAID 10 mirror copy continued to provide access
+to the data.
+
+
+RESULT
+------
+PASS — Single-member degraded read access confirmed.

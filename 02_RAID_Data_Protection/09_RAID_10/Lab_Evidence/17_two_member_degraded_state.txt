@@ -1,0 +1,42 @@
+RAID 10 LAB — TWO-MEMBER DEGRADED STATE
+=======================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+OUTPUT
+------
+md10 : active raid10 sde[3] sdd[2](F) sdc[1] sdb[0](F)
+      351387648 blocks super 1.2 512K chunks 2 near-copies [4/2] [_U_U]
+      bitmap: 3/3 pages [12KB], 65536KB chunk
+
+
+INTERPRETATION
+--------------
+Expected members:
+    4
+
+Working members:
+    2
+
+Failed members:
+    2
+
+Failed:
+    /dev/sdb
+    /dev/sdd
+
+Working:
+    /dev/sdc
+    /dev/sde
+
+RAID state:
+    [4/2] [_U_U]
+
+
+RESULT
+------
+PASS — RAID 10 remained active with two members failed because
+the failures were distributed across different mirror relationships.

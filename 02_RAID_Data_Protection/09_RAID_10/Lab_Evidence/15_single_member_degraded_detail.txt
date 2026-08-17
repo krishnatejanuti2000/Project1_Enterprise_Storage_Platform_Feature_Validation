@@ -1,0 +1,40 @@
+RAID 10 LAB — SINGLE-MEMBER DEGRADED DETAIL
+===========================================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md10
+
+
+OUTPUT SUMMARY
+--------------
+State             : clean, degraded
+Active Devices    : 3
+Working Devices   : 3
+Failed Devices    : 1
+Spare Devices     : 0
+
+Layout            : near=2
+Chunk Size        : 512K
+Consistency Policy: bitmap
+
+
+MEMBERS
+-------
+/dev/sdb → faulty
+/dev/sdc → active sync set-B
+/dev/sdd → active sync set-A
+/dev/sde → active sync set-B
+
+
+RAID DEVICE MAP
+---------------
+RaidDevice 0 → removed / faulty /dev/sdb
+RaidDevice 1 → /dev/sdc
+RaidDevice 2 → /dev/sdd
+RaidDevice 3 → /dev/sde
+
+
+RESULT
+------
+PASS — Detailed single-member degraded state captured.

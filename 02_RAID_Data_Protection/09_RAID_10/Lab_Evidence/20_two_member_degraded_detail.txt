@@ -1,0 +1,45 @@
+RAID 10 LAB — TWO-MEMBER DEGRADED DETAIL
+========================================
+
+COMMAND
+-------
+sudo mdadm --detail /dev/md10
+
+
+OUTPUT SUMMARY
+--------------
+State             : clean, degraded
+Active Devices    : 2
+Working Devices   : 2
+Failed Devices    : 2
+Spare Devices     : 0
+
+Layout            : near=2
+Chunk Size        : 512K
+Consistency Policy: bitmap
+
+
+MEMBERS
+-------
+/dev/sdb → faulty
+/dev/sdc → active sync set-B
+/dev/sdd → faulty
+/dev/sde → active sync set-B
+
+
+RAID DEVICE MAP
+---------------
+RaidDevice 0 → removed /dev/sdb
+RaidDevice 1 → /dev/sdc
+RaidDevice 2 → removed /dev/sdd
+RaidDevice 3 → /dev/sde
+
+
+RAID STATE
+----------
+[4/2] [_U_U]
+
+
+RESULT
+------
+PASS — Detailed two-member distributed-failure state captured.

@@ -1,0 +1,46 @@
+RAID 10 LAB — PRE-FAILURE HEALTHY STATE
+=======================================
+
+COMMAND
+-------
+cat /proc/mdstat
+
+
+OUTPUT
+------
+md10 : active raid10 sde[3] sdd[2] sdc[1] sdb[0]
+      351387648 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      bitmap: 2/3 pages [8KB], 65536KB chunk
+
+
+RAID DETAIL
+-----------
+sudo mdadm --detail /dev/md10
+
+State:
+    clean / active
+
+Active Devices:
+    4
+
+Working Devices:
+    4
+
+Failed Devices:
+    0
+
+Layout:
+    near=2
+
+Chunk Size:
+    512K
+
+
+FILESYSTEM
+----------
+/dev/md10 on /mnt/raid10 type ext4 (rw,relatime,stripe=256)
+
+
+RESULT
+------
+PASS — RAID 10 healthy baseline captured before failure simulation.

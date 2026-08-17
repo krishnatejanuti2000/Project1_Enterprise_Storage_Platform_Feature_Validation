@@ -1,0 +1,60 @@
+RAID 10 LAB — TEST DATA CREATION
+================================
+
+TEST DATA LOCATION
+------------------
+/mnt/raid10
+
+
+FILE 1
+------
+Filename:
+    testfile_01.txt
+
+Contents:
+    RAID10-TEST-DATA-001
+    Enterprise Storage Validation
+    RAID Level: RAID 10
+    Primary Test: Data Accessibility
+    Member Count: 4
+    Layout: near=2
+    Status: Initial Healthy State
+
+
+FILE 2
+------
+Filename:
+    testfile_02.txt
+
+Contents:
+    RAID10-TEST-DATA-002
+    Storage Engineering Laboratory
+    Test Scenario: Mirror Failure Recovery
+    Single Failure: Supported
+    Distributed Failure: Layout Dependent
+    Rebuild Validation: Required
+    Data Integrity: Required
+
+
+FILE 3
+------
+Filename:
+    testfile_03.txt
+
+Contents:
+    RAID10-TEST-DATA-003
+    Linux mdadm RAID Validation
+    Filesystem: ext4
+    Mount Point: /mnt/raid10
+    Purpose: Mirroring and Rebuild Testing
+    Expected Result: Data Remains Consistent
+    Final Check: PASS
+
+
+VERIFICATION
+------------
+All three files were successfully created and read back.
+
+RESULT
+------
+PASS — RAID 10 test data created successfully.
